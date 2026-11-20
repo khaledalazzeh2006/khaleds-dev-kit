@@ -24,6 +24,9 @@ export default defineConfig(() => ({
     watch: { ignored: ["**/src-tauri/**"] },
   },
 
+  // Loaded from disk by the desktop app, so a larger main chunk is fine.
+  build: { chunkSizeWarningLimit: 1000 },
+
   test: {
     globals: true,
     environment: "jsdom",

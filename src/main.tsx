@@ -1,12 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { RouterProvider } from "@tanstack/react-router";
 import "@fontsource-variable/inter";
 import "@fontsource-variable/jetbrains-mono";
 import "./app/theme.css";
-import App from "./App";
+import { initTheme } from "./lib/store/theme";
+import { router } from "./app/router";
+
+initTheme();
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} />
   </React.StrictMode>,
 );

@@ -10,41 +10,44 @@ Adding a module must never require edits to other modules.
 
 ## Contract (`src/app/module.ts`)
 ```ts
-export interface DevKitModule {
-  id: string;                 // kebab-case, unique, e.g. "css-tools"
-  title: string;              // sidebar label, e.g. "CSS Tools"
-  icon: LucideIcon;
-  order: number;              // sidebar position
-  routes: RouteDef[];         // TanStack Router child routes under /<id>
-  searchItems: () => SearchItem[] | Promise<SearchItem[]>; // fed into the global index
+interface ModuleItem {
+  id: string;            // kebab-case, unique within the module
+  title: string;
+  description?: string;
+  tags?: string[];       // first tag shows as a badge in the list
+  keywords?: string[];   // extra search words
+  copyValue?: string;    // if set, Enter copies it (commands, snippets); else Enter opens
 }
 
-export interface SearchItem {
-  id: string;                 // "<moduleId>:<itemId>"
+interface DevKitModule {
+  id: string;            // kebab-case, used in the URL: /#/<id>/<itemId>
   title: string;
-  subtitle?: string;
-  keywords?: string[];
-  action: { type: "open"; to: string } | { type: "copy"; value: string };
+  description: string;
+  icon: LucideIcon;
+  order: number;         // sidebar position + Mod 1..9
+  items: () => ModuleItem[];            // list pane; at least one item
+  Detail: ComponentType<DetailProps> | LazyExoticComponent<...>; // renders { item }
 }
 ```
+The shell does the rest: sidebar entry, routes (`/<id>/<itemId>`), list pane with fuzzy filter,
+Mod K search entries (built from `items()`), recent history. Reference: `src/modules/converters/`.
 
 ## Steps
-1. Create `src/modules/<id>/` with:
+1. Create `src/modules/<id>/`:
    ```
-   index.ts          exports the DevKitModule object (and nothing else public)
-   routes.tsx        route components
-   components/       module-only components
-   lib/              pure logic (no React) — this is where tests focus
-   <id>.test.ts      tests for lib/
+   index.ts                 exports the DevKitModule (items + lazy Detail) — nothing else
+   components/detail.tsx    default export: maps item.id → lazy tool/view component
+   components/<tool>.tsx    one file per tool, default export, uses ToolLayout
+   lib/                     pure logic (no React) — tests focus here
+   <id>.test.ts             tests for lib/
    ```
-2. Register it: one line in `src/app/registry.ts`. Nothing else in the shell changes.
-3. Every tool screen uses `ToolLayout` (see `ui-guidelines` §3).
-4. Expose each tool and each content item via `searchItems()` so Mod K finds it.
-5. Keep logic pure in `lib/` (input → output functions). UI only wires state to it.
-6. Tests: cover `lib/` functions with real examples (happy path + 1–2 edge cases).
-7. If it needs native access (files, DB, shell), add a Tauri command in `src-tauri/src/commands/`
-   and request only the minimum capability in `src-tauri/capabilities/`.
-8. Run `phase-review` checklist items that apply before calling it done.
+2. Register it: one import + one entry in `src/app/registry.ts`. Nothing else in the shell changes.
+3. Every tool screen uses `ToolLayout` + `Field` + `OutputCode` (see `ui-guidelines` §3–4).
+4. Keep logic pure in `lib/` (input → output). UI only wires state to it.
+5. Tests: cover `lib/` with real examples (happy path + 1–2 edge cases).
+6. Native access (files, DB, shell)? Add a Tauri command in `src-tauri/src/commands/` and request
+   only the minimum capability in `src-tauri/capabilities/`.
+7. Run the applicable `phase-review` items before calling it done.
 
 ## Rules
 - No imports from another module's folder. Shared code goes to `src/lib/` or `src/components/`.
