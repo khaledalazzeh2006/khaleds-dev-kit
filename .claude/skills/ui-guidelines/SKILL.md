@@ -45,7 +45,9 @@ redesign it. References for feel: Raycast, Linear, VS Code. Calm, dense, fast, k
 - Use the shared pieces in `src/components/tool/`, don't hand-roll:
   `ToolLayout` (frame) · `Field` (label + error/hint) · `CodeInput` (CodeMirror editor, pass `language`) ·
   `OutputCode` (copy block; pass `language` for highlighting) · `CopyRows` (several values, each copyable) ·
-  `Segmented` (exclusive options) · `RangeField` (slider + number).
+  `Segmented` (exclusive options) · `RangeField` (slider + number) · `SelectField` (long option lists) ·
+  `ColorField` (picker + any CSS color) · `Preview` (stage for live previews) · `CssOutput` (CSS ↔ Tailwind).
+- Every visual CSS tool outputs both CSS and Tailwind via `CssOutput`; generators live in `lib/` and are tested.
 - Hooks: `usePersistentState` (remember inputs/options) · `useAsyncResult` (debounced async output, stale-safe).
 - Files out: `saveBlob` (native Save dialog in the app). Images from user input are previewed via `<img>`
   (never inject pasted SVG/HTML into the DOM).
