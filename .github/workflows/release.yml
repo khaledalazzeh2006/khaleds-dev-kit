@@ -56,4 +56,6 @@ jobs:
           releaseDraft: false
           prerelease: false
           updaterJsonPreferNsis: true
+          # Checks the signing secrets first and shows build errors on the run page.
+          tauriScript: node scripts/ci-tauri.mjs
           args: ${{ matrix.args }} --config src-tauri/tauri.release.conf.json
