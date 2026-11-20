@@ -1,4 +1,4 @@
-import { arbitrary, spacing } from "./lib/tailwind";
+import { arbitrary, spacing } from "@/lib/tailwind";
 import {
   bezierPoint,
   borderRadius,

@@ -15,6 +15,18 @@ export default tseslint.config(
       ...reactHooks.configs.recommended.rules,
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "@typescript-eslint/no-unused-vars": ["error", { argsIgnorePattern: "^_" }],
+      // Modules are independent: never import another module's internals. Shared code goes to src/lib.
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: ["@/modules/*/*"],
+              message: "Don't import another module's internals; move shared code to src/lib.",
+            },
+          ],
+        },
+      ],
     },
   },
   {

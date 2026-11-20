@@ -1,6 +1,10 @@
 // Pure formatting helpers. Heavy libraries are imported on demand so they only load
 // when a formatter is actually used.
 
+import { parseJson } from "@/lib/json";
+
+export { parseJson };
+
 export type Indent = "2" | "4" | "tab";
 export type SqlDialect = "postgresql" | "mysql" | "sqlite" | "transactsql" | "sql";
 export type KeywordCase = "upper" | "lower" | "preserve";
@@ -15,26 +19,6 @@ export interface FormatOptions {
 export type FormatLang = "json" | "html" | "css" | "javascript" | "typescript" | "sql";
 
 const indentOf = (i: Indent) => ({ useTabs: i === "tab", tabWidth: i === "4" ? 4 : 2 });
-
-/** Parse JSON with a readable error that includes line and column. */
-export function parseJson(text: string): unknown {
-  try {
-    return JSON.parse(text);
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e);
-    const pos = Number(/position (\d+)/.exec(msg)?.[1]);
-    if (Number.isFinite(pos)) {
-      const before = text.slice(0, pos).split("\n");
-      const line = before.length;
-      const col = (before.at(-1)?.length ?? 0) + 1;
-      throw new Error(
-        `Invalid JSON at line ${line}, column ${col}: ${msg.replace(/ in JSON at position \d+.*$/, "")}`,
-        { cause: e },
-      );
-    }
-    throw new Error(`Invalid JSON: ${msg}`, { cause: e });
-  }
-}
 
 export function formatJson(text: string, indent: Indent): string {
   return JSON.stringify(parseJson(text), null, indent === "tab" ? "\t" : Number(indent));

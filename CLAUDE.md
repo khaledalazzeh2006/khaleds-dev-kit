@@ -26,7 +26,7 @@ src/app/            shell: layout, sidebar, router, theme, command palette
 src/modules/<id>/   one folder per module (commands, gsap, css-tools, database, formatters,
                     converters, design, responsive, library) — registered in src/app/registry.ts
 src/components/ui/  shadcn components (generated, edit sparingly)
-src/lib/            search index, stores, shared utils
+src/lib/            shared logic used by 2+ modules (search, stores, hooks, json, fluid, tailwind…)
 content/            static data (commands/, snippets/) + schemas/
 src-tauri/          Rust side
 docs/               analysis, architecture, roadmap, decisions (ADRs)
@@ -41,6 +41,7 @@ docs/               analysis, architecture, roadmap, decisions (ADRs)
   hard-coded paths or OS-specific shell syntax.
 - No paid services, no telemetry, no network calls at runtime (the app works offline).
 - Content (commands/snippets) comes only from official docs and must pass schema validation.
+- Modules never import each other's files (ESLint enforces it). Shared code → `src/lib/`.
 - Never add a dependency without saying why and checking its license is free for this use.
 - Don't start the next phase until the current one passes `phase-review`.
 - `useEffect` bodies always use braces — never `useEffect(() => fn())`. Some DOM APIs now return

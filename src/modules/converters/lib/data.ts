@@ -1,6 +1,6 @@
 import { dump, load } from "js-yaml";
 import Papa from "papaparse";
-import { parseJson } from "@/modules/formatters/lib/format";
+import { parseJson } from "@/lib/json";
 
 export function jsonToYaml(json: string): string {
   if (!json.trim()) return "";

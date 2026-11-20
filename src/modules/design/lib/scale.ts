@@ -1,18 +1,6 @@
-const rem = (px: number, base = 16) => `${Number((px / base).toFixed(4))}rem`;
+import { fluidClamp, rem } from "@/lib/fluid";
 
-/**
- * Fluid value with clamp(): `min` at `minVw` viewport width, growing linearly to `max` at `maxVw`.
- * Sizes in px, output in rem + vw (so it still respects the user's font-size setting).
- */
-export function fluidClamp(minPx: number, maxPx: number, minVw = 360, maxVw = 1280): string {
-  if (minPx === maxPx) return rem(minPx);
-  const slope = (maxPx - minPx) / (maxVw - minVw);
-  const intercept = minPx - slope * minVw;
-  const vw = Number((slope * 100).toFixed(4));
-  const lo = Math.min(minPx, maxPx);
-  const hi = Math.max(minPx, maxPx);
-  return `clamp(${rem(lo)}, ${rem(intercept)} + ${vw}vw, ${rem(hi)})`;
-}
+export { fluidClamp };
 
 export const RATIOS: Record<string, number> = {
   "Minor second · 1.067": 1.067,

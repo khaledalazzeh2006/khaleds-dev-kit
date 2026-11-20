@@ -1,4 +1,4 @@
-import { parseJson } from "@/modules/formatters/lib/format";
+import { parseJson } from "@/lib/json";
 
 /**
  * Infer TypeScript interfaces from a JSON sample.

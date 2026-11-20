@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field } from "@/components/tool/field";
 import { OutputCode } from "@/components/tool/output-code";
+import { Segmented } from "@/components/tool/segmented";
 import { ToolLayout } from "@/components/tool/tool-layout";
 import { openExternal } from "@/lib/open-url";
 import { cn } from "@/lib/utils";
@@ -108,22 +109,15 @@ export default function CommandDetail({ item }: DetailProps) {
       output={
         <>
           {cmd.platforms && (
-            <div role="group" aria-label="Platform" className="flex w-fit rounded-md border p-0.5">
-              {(["windows", "macos"] as const).map((p) => (
-                <button
-                  key={p}
-                  type="button"
-                  aria-pressed={platform === p}
-                  onClick={() => setPlatform(p)}
-                  className={cn(
-                    "rounded px-2.5 py-1 text-xs text-muted-foreground transition-colors",
-                    platform === p && "bg-accent text-foreground",
-                  )}
-                >
-                  {platformLabel[p]}
-                </button>
-              ))}
-            </div>
+            <Segmented
+              label="Platform"
+              value={platform}
+              onChange={setPlatform}
+              options={(["windows", "macos"] as const).map((p) => ({
+                value: p,
+                label: platformLabel[p],
+              }))}
+            />
           )}
           <OutputCode label="Command" code={output} />
           <p className="text-xs text-muted-foreground">

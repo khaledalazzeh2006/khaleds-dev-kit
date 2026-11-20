@@ -1,4 +1,4 @@
-import { arbitrary, classes, spacing } from "./tailwind";
+import { arbitrary, classes, spacing } from "@/lib/tailwind";
 
 export interface CssResult {
   css: string;

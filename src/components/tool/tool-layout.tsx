@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { cn } from "@/lib/utils";
 
 interface ToolLayoutProps {
   title: string;
@@ -10,10 +11,19 @@ interface ToolLayoutProps {
   input: ReactNode;
   /** Preview + OutputCode (right / bottom). */
   output: ReactNode;
+  /** "stacked": input above output at full width (for wide previews). Default "split". */
+  layout?: "split" | "stacked";
 }
 
 /** The one layout every tool uses: header, then input and output side by side (stacked when narrow). */
-export function ToolLayout({ title, description, actions, input, output }: ToolLayoutProps) {
+export function ToolLayout({
+  title,
+  description,
+  actions,
+  input,
+  output,
+  layout = "split",
+}: ToolLayoutProps) {
   return (
     <div className="@container flex h-full flex-col">
       <header className="flex items-start justify-between gap-4 border-b px-4 py-3">
@@ -23,7 +33,12 @@ export function ToolLayout({ title, description, actions, input, output }: ToolL
         </div>
         {actions && <div className="flex shrink-0 items-center gap-1">{actions}</div>}
       </header>
-      <div className="grid min-h-0 flex-1 grid-cols-1 gap-4 overflow-auto p-4 @min-[640px]:grid-cols-2">
+      <div
+        className={cn(
+          "grid min-h-0 flex-1 grid-cols-1 content-start gap-4 overflow-auto p-4",
+          layout === "split" && "@min-[640px]:grid-cols-2",
+        )}
+      >
         <section aria-label="Input" className="flex flex-col gap-3">
           {input}
         </section>

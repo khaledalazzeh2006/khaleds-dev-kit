@@ -1,6 +1,6 @@
 # Progress
 
-**Current phase:** 5 — GSAP & Scroll (built, waiting for Khaled's check on Windows)
+**Current phase:** 6 — Responsive Tools (built, waiting for Khaled's check on Windows)
 **Last updated:** 2026-11-20
 
 ## Done
@@ -53,7 +53,7 @@
 - [x] Screenshots checked for all 12 tools; drag on clip-path verified
 - [x] Checked by Khaled on Windows
 
-## Phase 5 — GSAP & Scroll
+## Phase 5 — GSAP & Scroll (done)
 - [x] Snippet content: 18 JSON snippets in content/snippets/gsap (schema + zod now support `group`, `codeReact`, param `options`)
 - [x] Module `gsap` (GSAP & Scroll): groups Basics / ScrollTrigger / Text & SVG / Interaction / Setup / Tools
 - [x] Detail: live preview (15 previews, ScrollTrigger ones scroll inside their own box via `scroller`), params (number/select/ease/boolean/color), Replay, React (useGSAP) ↔ Vanilla code, install line, Docs
@@ -61,9 +61,17 @@
 - [x] Code blocks: ligatures off (=> stays =>)
 - [x] Tests: every snippet (both flavors, filled with defaults) parses with Prettier; params declared; eases valid; React component names never shadow imports — 77 tests
 - [x] Screenshots: all previews checked, scroll + Flip interactions verified
-- [ ] Khaled: `pnpm install` + `pnpm tauri dev`, play with previews, then commit
+- [x] Checked by Khaled on Windows
+
+## Phase 6 — Responsive Tools
+- [x] Module `responsive`: Device preview (iframes at real device sizes, scaled; portrait/landscape; reload; open in browser), Breakpoints (Tailwind v4 / Bootstrap 5 + container sizes, live window width), clamp() generator (+ "try a screen width"), Media & container queries (range or classic syntax, px/rem/em, named containers, Tailwind variants, feature queries), Responsive images (srcset/sizes/<picture>), CSS units cheat sheet
+- [x] Refactor: shared helpers moved to src/lib (json.ts, fluid.ts, tailwind.ts); ESLint now blocks deep imports between modules (`@/modules/*/*`)
+- [x] ToolLayout `layout="stacked"` for wide tools; Commands platform switch uses Segmented; RangeField number box fits large values
+- [x] 85 tests; screenshots checked (device preview rendered the app itself in 3 frames)
+- [ ] Khaled: `pnpm tauri dev` → try Device preview with a running project (e.g. a Vite app on :5173), then commit
 
 ## Open questions / later
+- Khaled's Node.js is managed by **fnm** (default v26). Fixed for every shell by adding `%APPDATA%\fnm\aliases\default` to the user PATH (pnpm is installed globally there). If node/pnpm go missing after changing Node versions, check that folder first.
 - `fluidClamp()` (design/lib/scale.ts) is reused by the Responsive phase for the clamp() generator.
 - Image tool: one file at a time; batch convert later. Lossy output can be bigger than a small PNG (shown in orange).
 - Package-manager switch (npm ↔ pnpm ↔ yarn) on install commands — later; for now npm and pnpm have their own lists.
@@ -81,8 +89,8 @@
 | 2 Terminal Commands | done | 2026-11-20 |
 | 3 Formatters + Converters | done | 2026-11-20 |
 | 4 CSS Visual Editors + Design | done | 2026-11-20 |
-| 5 GSAP & Scroll | review | 2026-11-20 |
-| 6 Responsive Tools | — | |
+| 5 GSAP & Scroll | done | 2026-11-20 |
+| 6 Responsive Tools | review | 2026-11-20 |
 | 7 Database | — | |
 | 8 My Library + VS Code snippet export | — | |
 | 9 Integrations (DB connect, run commands, VS Code extension) | — | |
