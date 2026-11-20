@@ -1,6 +1,6 @@
 # Progress
 
-**Current phase:** 2 — Terminal Commands (built, waiting for Khaled's check on Windows)
+**Current phase:** 3 — Formatters + Converters (built, waiting for Khaled's check on Windows)
 **Last updated:** 2026-11-20
 
 ## Done
@@ -26,7 +26,7 @@
 - [x] `pnpm check` + build pass; screenshots checked at 1280 / 900 / 620 px, dark + light
 - [x] Checked by Khaled on Windows: everything works
 
-## Phase 2 — Terminal Commands
+## Phase 2 — Terminal Commands (done)
 - [x] `src/lib/content/`: zod schema (mirrors content/schemas) + loader (import.meta.glob, bundled → offline)
 - [x] Module `commands`: list grouped by framework; detail with {{vars}} (remembered across commands), toggleable flags, Windows/macOS variants, Docs link, danger banner + red badge
 - [x] Enter on a list/palette item copies the command with your last-used values
@@ -34,9 +34,19 @@
 - [x] Content batch 1: 131 commands / 10 files (npm, pnpm, git, vite-react, nextjs, express, nestjs, prisma v7, threejs+R3F+gltfjsx, gltf-transform) — sources: official docs, checked 2026-11
 - [x] Tests: render (vars, flags, platforms) + content integrity (unique ids, known framework, every {{var}} declared) — 23 tests
 - [x] Screenshots checked: list, detail with vars/flags, danger command, filter, Mod K
-- [ ] Khaled: `pnpm install` + `pnpm tauri dev`, try a few commands, then commit
+- [x] Checked by Khaled on Windows (after fixing "destroy is not a function": useEffect returned scrollIntoView's Promise)
+
+## Phase 3 — Formatters + Converters
+- [x] Shared: CodeInput (CodeMirror 6, themed by tokens, syntax colors in theme.css), OutputCode `language`, Segmented, RangeField, CopyRows, usePersistentState, useAsyncResult, saveBlob
+- [x] Formatters module: JSON (format/minify/validate with line+col), HTML, CSS (+minify), JavaScript (+minify), TypeScript, SQL (dialect + keyword case), Diff (+ unified patch)
+- [x] Converters: Color (HEX/RGB/HSL/OKLCH + WCAG contrast), Image (WebP/AVIF/JPEG/PNG, quality, max width, worker + WASM, native Save dialog), JSON↔YAML, JSON↔CSV, JSON→TS, SVG→JSX (+safe preview), Base64, URL (+parts), Timestamp
+- [x] Tool inputs/options remembered between sessions
+- [x] Rust: tauri-plugin-dialog + tauri-plugin-fs (capabilities: dialog:allow-save, fs:allow-write-file)
+- [x] 51 tests; screenshots checked for every tool (dark + light); WebP and AVIF encoding verified in Chromium
+- [ ] Khaled: `pnpm install` + `pnpm tauri dev` (Rust rebuild for the new plugins), test Image → Save, then commit
 
 ## Open questions / later
+- Image tool: one file at a time; batch convert later. Lossy output can be bigger than a small PNG (shown in orange).
 - Package-manager switch (npm ↔ pnpm ↔ yarn) on install commands — later; for now npm and pnpm have their own lists.
 - Prisma 8 is in RC; commands target Prisma 7 (stable). Re-check when 8 is GA.
 - shadcn registry is blocked in Claude's sandbox: button/tooltip/dialog/input were written by hand in shadcn style. On Windows, `pnpm dlx shadcn@latest add <x>` works normally.
@@ -49,8 +59,8 @@
 |---|---|---|
 | 0 Setup | done | 2026-11-20 |
 | 1 Shell (layout, sidebar, Mod+K, registry, themes) | done | 2026-11-20 |
-| 2 Terminal Commands | review | 2026-11-20 |
-| 3 Formatters + Converters | — | |
+| 2 Terminal Commands | done | 2026-11-20 |
+| 3 Formatters + Converters | review | 2026-11-20 |
 | 4 CSS Visual Editors + Design | — | |
 | 5 GSAP & Scroll | — | |
 | 6 Responsive Tools | — | |

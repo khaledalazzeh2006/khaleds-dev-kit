@@ -42,7 +42,14 @@ redesign it. References for feel: Raycast, Linear, VS Code. Calm, dense, fast, k
 │                                │ [Copy] always top-right of the code block   │
 └──────────────────────────────────────────────────────────────────────────────┘
 ```
-- Use `<ToolLayout>`, `<ToolHeader>`, `<OutputCode>` from `src/components/tool/`. Don't hand-roll.
+- Use the shared pieces in `src/components/tool/`, don't hand-roll:
+  `ToolLayout` (frame) · `Field` (label + error/hint) · `CodeInput` (CodeMirror editor, pass `language`) ·
+  `OutputCode` (copy block; pass `language` for highlighting) · `CopyRows` (several values, each copyable) ·
+  `Segmented` (exclusive options) · `RangeField` (slider + number).
+- Hooks: `usePersistentState` (remember inputs/options) · `useAsyncResult` (debounced async output, stale-safe).
+- Files out: `saveBlob` (native Save dialog in the app). Images from user input are previewed via `<img>`
+  (never inject pasted SVG/HTML into the DOM).
+- Syntax colors: `--syntax-*` and `--diff-*` tokens in theme.css (both themes).
 - Output updates live (debounce 150ms for heavy work). No "Generate" button unless the work is slow (>300ms).
 - Output format switch (e.g. CSS ↔ Tailwind, SQL dialect) is a segmented control above the code block.
 - Every tool opens with sensible defaults already producing a result — never an empty screen.

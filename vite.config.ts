@@ -24,6 +24,10 @@ export default defineConfig(() => ({
     watch: { ignored: ["**/src-tauri/**"] },
   },
 
+  // WASM image codecs must not be pre-bundled; workers are ES modules.
+  optimizeDeps: { exclude: ["@jsquash/webp", "@jsquash/avif", "@jsquash/jpeg"] },
+  worker: { format: "es" as const },
+
   // Loaded from disk by the desktop app, so a larger main chunk is fine.
   build: { chunkSizeWarningLimit: 1000 },
 
