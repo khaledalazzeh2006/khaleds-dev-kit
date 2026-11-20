@@ -1,0 +1,12 @@
+{
+  "id": "sql-explain",
+  "category": "sql",
+  "group": "Performance",
+  "title": "Explain a slow query",
+  "description": "See the plan: look for full scans on big tables.",
+  "language": "sql",
+  "code": "-- PostgreSQL (runs the query and shows real timings)\nEXPLAIN (ANALYZE, BUFFERS) SELECT * FROM orders WHERE customer_id = 42;\n\n-- MySQL 8\nEXPLAIN ANALYZE SELECT * FROM orders WHERE customer_id = 42;\n\n-- SQLite\nEXPLAIN QUERY PLAN SELECT * FROM orders WHERE customer_id = 42;\n",
+  "tags": ["explain", "performance", "slow"],
+  "source": "https://www.postgresql.org/docs/current/using-explain.html",
+  "verified": "2026-11"
+}

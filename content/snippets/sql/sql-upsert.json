@@ -1,0 +1,12 @@
+{
+  "id": "sql-upsert",
+  "category": "sql",
+  "group": "Writes",
+  "title": "Upsert (insert or update)",
+  "description": "Insert a row, or update it if the key already exists — per database.",
+  "language": "sql",
+  "code": "-- PostgreSQL / SQLite\nINSERT INTO products (sku, name, price)\nVALUES ('A-100', 'Mug', 9.5)\nON CONFLICT (sku) DO UPDATE\nSET name = EXCLUDED.name, price = EXCLUDED.price;\n\n-- MySQL\nINSERT INTO products (sku, name, price)\nVALUES ('A-100', 'Mug', 9.5) AS new\nON DUPLICATE KEY UPDATE name = new.name, price = new.price;\n\n-- SQL Server\nMERGE products AS t\nUSING (VALUES ('A-100', 'Mug', 9.5)) AS s (sku, name, price)\nON t.sku = s.sku\nWHEN MATCHED THEN UPDATE SET name = s.name, price = s.price\nWHEN NOT MATCHED THEN INSERT (sku, name, price) VALUES (s.sku, s.name, s.price);\n",
+  "tags": ["upsert", "on conflict", "merge"],
+  "source": "https://www.postgresql.org/docs/current/sql-insert.html#SQL-ON-CONFLICT",
+  "verified": "2026-11"
+}

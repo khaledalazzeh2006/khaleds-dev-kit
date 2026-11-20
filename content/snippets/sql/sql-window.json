@@ -1,0 +1,12 @@
+{
+  "id": "sql-window",
+  "category": "sql",
+  "group": "Queries",
+  "title": "Window functions",
+  "description": "Rank or number rows inside groups without collapsing them.",
+  "language": "sql",
+  "code": "-- Latest order per customer\nSELECT *\nFROM (\n  SELECT o.*,\n         ROW_NUMBER() OVER (PARTITION BY customer_id ORDER BY created_at DESC) AS rn\n  FROM orders o\n) ranked\nWHERE rn = 1;\n\n-- Running total\nSELECT created_at, total,\n       SUM(total) OVER (ORDER BY created_at) AS running_total\nFROM orders;\n",
+  "tags": ["window", "row_number", "rank"],
+  "source": "https://www.postgresql.org/docs/current/tutorial-window.html",
+  "verified": "2026-11"
+}

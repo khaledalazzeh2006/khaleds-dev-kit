@@ -1,0 +1,12 @@
+{
+  "id": "sql-full-text",
+  "category": "sql",
+  "group": "PostgreSQL",
+  "title": "Full-text search",
+  "description": "Search words (with ranking) instead of LIKE '%…%'.",
+  "language": "sql",
+  "code": "ALTER TABLE posts\n  ADD COLUMN search tsvector\n  GENERATED ALWAYS AS (to_tsvector('english', coalesce(title, '') || ' ' || coalesce(body, ''))) STORED;\n\nCREATE INDEX idx_posts_search ON posts USING GIN (search);\n\nSELECT id, title, ts_rank(search, q) AS rank\nFROM posts, websearch_to_tsquery('english', 'react hooks') q\nWHERE search @@ q\nORDER BY rank DESC\nLIMIT 20;\n",
+  "tags": ["search", "full text", "tsvector"],
+  "source": "https://www.postgresql.org/docs/current/textsearch-intro.html",
+  "verified": "2026-11"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "sql-jsonb",
+  "category": "sql",
+  "group": "PostgreSQL",
+  "title": "Query JSONB",
+  "description": "Read and filter JSON columns in PostgreSQL.",
+  "language": "sql",
+  "code": "-- Read a field (->> returns text)\nSELECT id, settings->>'theme' AS theme FROM users;\n\n-- Filter: rows whose JSON contains a value (use a GIN index)\nSELECT * FROM products WHERE attributes @> '{\"color\": \"red\"}';\nCREATE INDEX idx_products_attributes ON products USING GIN (attributes);\n\n-- Update one key\nUPDATE users SET settings = jsonb_set(settings, '{theme}', '\"dark\"') WHERE id = 1;\n",
+  "tags": ["json", "jsonb"],
+  "source": "https://www.postgresql.org/docs/current/functions-json.html",
+  "verified": "2026-11"
+}

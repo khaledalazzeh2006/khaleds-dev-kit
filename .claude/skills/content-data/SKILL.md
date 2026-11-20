@@ -38,6 +38,9 @@ work at the end.
 - `params[].type`: number (min/max/step/unit) · select/ease (`options`) · boolean · color · string.
 - `preview` = id of a live preview component (GSAP: `src/modules/gsap/components/previews/index.ts`).
 - `group` decides the list section. New GSAP snippets: also add the id to ORDER in `src/modules/gsap/lib/data.ts`.
+- SQL snippets live in `content/snippets/sql/sql-<name>.json` (category "sql", id prefixed `sql-`, no params/preview).
+  `group` is one of Queries / Writes / Performance / PostgreSQL and shows as "SQL · <group>". Write standard SQL
+  and say in a comment when a line is PostgreSQL-only (e.g. RETURNING, JSONB).
 - Tests fail if a snippet doesn't parse (with defaults filled), uses an undeclared param, or a React
   component name shadows an import — so run `pnpm test` after editing.
 

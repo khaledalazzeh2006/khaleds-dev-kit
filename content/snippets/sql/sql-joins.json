@@ -1,0 +1,12 @@
+{
+  "id": "sql-joins",
+  "category": "sql",
+  "group": "Queries",
+  "title": "JOINs at a glance",
+  "description": "INNER keeps matches only; LEFT keeps every row from the left table.",
+  "language": "sql",
+  "code": "-- Only users that have orders\nSELECT u.name, o.total\nFROM users u\nINNER JOIN orders o ON o.user_id = u.id;\n\n-- Every user, with orders if any (o.* is NULL when there are none)\nSELECT u.name, o.total\nFROM users u\nLEFT JOIN orders o ON o.user_id = u.id;\n\n-- Users with NO orders\nSELECT u.*\nFROM users u\nLEFT JOIN orders o ON o.user_id = u.id\nWHERE o.id IS NULL;\n",
+  "tags": ["join", "select"],
+  "source": "https://www.postgresql.org/docs/current/queries-table-expressions.html",
+  "verified": "2026-11"
+}

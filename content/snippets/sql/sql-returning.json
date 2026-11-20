@@ -1,0 +1,12 @@
+{
+  "id": "sql-returning",
+  "category": "sql",
+  "group": "Writes",
+  "title": "Get the inserted row back",
+  "description": "Return generated ids/defaults from an INSERT or UPDATE.",
+  "language": "sql",
+  "code": "-- PostgreSQL / SQLite (3.35+)\nINSERT INTO users (email) VALUES ('a@b.com') RETURNING id, created_at;\n\n-- SQL Server\nINSERT INTO users (email) OUTPUT inserted.id VALUES ('a@b.com');\n\n-- MySQL\nINSERT INTO users (email) VALUES ('a@b.com');\nSELECT LAST_INSERT_ID();\n",
+  "tags": ["returning", "insert", "id"],
+  "source": "https://www.postgresql.org/docs/current/dml-returning.html",
+  "verified": "2026-11"
+}

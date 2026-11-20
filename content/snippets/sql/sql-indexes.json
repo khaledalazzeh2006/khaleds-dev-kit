@@ -1,0 +1,12 @@
+{
+  "id": "sql-indexes",
+  "category": "sql",
+  "group": "Performance",
+  "title": "Indexes",
+  "description": "Speed up WHERE, JOIN and ORDER BY on large tables.",
+  "language": "sql",
+  "code": "-- Single column (foreign keys usually need one)\nCREATE INDEX idx_orders_customer_id ON orders (customer_id);\n\n-- Composite: column order matters (filter first, then sort)\nCREATE INDEX idx_orders_status_created ON orders (status, created_at DESC);\n\n-- Unique\nCREATE UNIQUE INDEX idx_users_email ON users (email);\n\n-- PostgreSQL: partial index (only rows you query)\nCREATE INDEX idx_orders_pending ON orders (created_at) WHERE status = 'pending';\n",
+  "tags": ["index", "performance"],
+  "source": "https://www.postgresql.org/docs/current/indexes.html",
+  "verified": "2026-11"
+}

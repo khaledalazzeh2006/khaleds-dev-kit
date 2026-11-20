@@ -6,12 +6,14 @@ import { cssToolsModule } from "@/modules/css-tools";
 import { designModule } from "@/modules/design";
 import { gsapModule } from "@/modules/gsap";
 import { responsiveModule } from "@/modules/responsive";
+import { databaseModule } from "@/modules/database";
 
 /** Every module in the app. Adding a module = one import + one entry here. */
 export const modules: DevKitModule[] = [
   commandsModule,
   formattersModule,
   convertersModule,
+  databaseModule,
   cssToolsModule,
   gsapModule,
   designModule,

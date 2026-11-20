@@ -1,0 +1,12 @@
+{
+  "id": "sql-cte",
+  "category": "sql",
+  "group": "Queries",
+  "title": "CTE (WITH)",
+  "description": "Name a sub-query to keep long queries readable.",
+  "language": "sql",
+  "code": "WITH paid AS (\n  SELECT customer_id, SUM(total) AS spent\n  FROM orders\n  WHERE status = 'paid'\n  GROUP BY customer_id\n)\nSELECT c.full_name, p.spent\nFROM paid p\nJOIN customers c ON c.id = p.customer_id\nWHERE p.spent > 1000;\n",
+  "tags": ["cte", "with"],
+  "source": "https://www.postgresql.org/docs/current/queries-with.html",
+  "verified": "2026-11"
+}

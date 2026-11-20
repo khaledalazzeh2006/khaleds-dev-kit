@@ -1,0 +1,12 @@
+{
+  "id": "sql-create-user",
+  "category": "sql",
+  "group": "PostgreSQL",
+  "title": "App user with limited rights",
+  "description": "A database user for your app that can't drop tables.",
+  "language": "sql",
+  "code": "CREATE ROLE app_user WITH LOGIN PASSWORD 'change-me';\nGRANT CONNECT ON DATABASE app TO app_user;\nGRANT USAGE ON SCHEMA public TO app_user;\nGRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA public TO app_user;\nGRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO app_user;\n-- Also for tables created later:\nALTER DEFAULT PRIVILEGES IN SCHEMA public GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO app_user;\n",
+  "tags": ["security", "role", "grant"],
+  "source": "https://www.postgresql.org/docs/current/sql-grant.html",
+  "verified": "2026-11"
+}

@@ -1,0 +1,12 @@
+{
+  "id": "sql-transaction",
+  "category": "sql",
+  "group": "Writes",
+  "title": "Transactions",
+  "description": "All-or-nothing changes: commit together or roll back.",
+  "language": "sql",
+  "code": "BEGIN;  -- SQL Server: BEGIN TRANSACTION;\n\nUPDATE accounts SET balance = balance - 100 WHERE id = 1;\nUPDATE accounts SET balance = balance + 100 WHERE id = 2;\n\nCOMMIT;  -- or ROLLBACK; to undo both\n",
+  "tags": ["transaction", "commit", "rollback"],
+  "source": "https://www.postgresql.org/docs/current/tutorial-transactions.html",
+  "verified": "2026-11"
+}

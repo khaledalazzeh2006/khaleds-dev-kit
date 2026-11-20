@@ -1,6 +1,6 @@
 # Progress
 
-**Current phase:** 6 — Responsive Tools (built, waiting for Khaled's check on Windows)
+**Current phase:** 7 — Database (waiting for Khaled to test)
 **Last updated:** 2026-11-20
 
 ## Done
@@ -63,12 +63,22 @@
 - [x] Screenshots: all previews checked, scroll + Flip interactions verified
 - [x] Checked by Khaled on Windows
 
-## Phase 6 — Responsive Tools
+## Phase 6 — Responsive Tools (done)
 - [x] Module `responsive`: Device preview (iframes at real device sizes, scaled; portrait/landscape; reload; open in browser), Breakpoints (Tailwind v4 / Bootstrap 5 + container sizes, live window width), clamp() generator (+ "try a screen width"), Media & container queries (range or classic syntax, px/rem/em, named containers, Tailwind variants, feature queries), Responsive images (srcset/sizes/<picture>), CSS units cheat sheet
 - [x] Refactor: shared helpers moved to src/lib (json.ts, fluid.ts, tailwind.ts); ESLint now blocks deep imports between modules (`@/modules/*/*`)
 - [x] ToolLayout `layout="stacked"` for wide tools; Commands platform switch uses Segmented; RangeField number box fits large values
 - [x] 85 tests; screenshots checked (device preview rendered the app itself in 3 frames)
-- [ ] Khaled: `pnpm tauri dev` → try Device preview with a running project (e.g. a Vite app on :5173), then commit
+- [x] Checked by Khaled on Windows
+
+## Phase 7 — Database (built, waiting for Khaled's check)
+- [x] Module `database` (order 35): Schema designer (tables/columns, PK/NULL/UQ, defaults, FK + on delete, templates Blank/Blog/Shop/Auth with Undo, validation, Import SQL from CREATE TABLE)
+- [x] Outputs: PostgreSQL / MySQL / SQLite / SQL Server DDL, Prisma 7 (prisma-client generator), TypeORM, Mongoose, EF Core, Mermaid ER; ER diagram view + Expand dialog
+- [x] SQL Server rules: no RESTRICT (→ NO ACTION), multiple cascade paths downgraded to NO ACTION, Prisma `onUpdate: NoAction`
+- [x] Seed data (faker, reproducible seed): FKs pick real parent keys (int or uuid); SQL per dialect / JSON / CSV
+- [x] Connection string builder (password kept in memory only, never saved)
+- [x] 13 SQL snippets (content/snippets/sql) grouped Queries / Writes / Performance / PostgreSQL
+- [x] Verified: all 16 template×provider Prisma schemas pass Prisma's validator; DDL + seeds run in SQLite with foreign_keys=ON; 101 tests
+- [ ] Checked by Khaled on Windows (`pnpm install` first — new dep @faker-js/faker)
 
 ## Open questions / later
 - Khaled's Node.js is managed by **fnm** (default v26). Fixed for every shell by adding `%APPDATA%\fnm\aliases\default` to the user PATH (pnpm is installed globally there). If node/pnpm go missing after changing Node versions, check that folder first.
@@ -90,8 +100,8 @@
 | 3 Formatters + Converters | done | 2026-11-20 |
 | 4 CSS Visual Editors + Design | done | 2026-11-20 |
 | 5 GSAP & Scroll | done | 2026-11-20 |
-| 6 Responsive Tools | review | 2026-11-20 |
-| 7 Database | — | |
+| 6 Responsive Tools | done | 2026-11-20 |
+| 7 Database | built | 2026-11-20, waiting for Windows check |
 | 8 My Library + VS Code snippet export | — | |
 | 9 Integrations (DB connect, run commands, VS Code extension) | — | |
 | 10 Polish (installer, auto-update, perf) | — | |

@@ -1,0 +1,12 @@
+{
+  "id": "sql-group-by",
+  "category": "sql",
+  "group": "Queries",
+  "title": "GROUP BY + HAVING",
+  "description": "Totals per group, then filter groups (HAVING runs after grouping).",
+  "language": "sql",
+  "code": "SELECT customer_id,\n       COUNT(*)   AS orders,\n       SUM(total) AS spent\nFROM orders\nWHERE status = 'paid'          -- filters rows before grouping\nGROUP BY customer_id\nHAVING SUM(total) > 500        -- filters groups after grouping\nORDER BY spent DESC;\n",
+  "tags": ["aggregate", "group by"],
+  "source": "https://www.postgresql.org/docs/current/tutorial-agg.html",
+  "verified": "2026-11"
+}

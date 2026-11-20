@@ -1,0 +1,12 @@
+{
+  "id": "sql-pagination",
+  "category": "sql",
+  "group": "Queries",
+  "title": "Pagination (offset & keyset)",
+  "description": "Offset is simple; keyset (seek) stays fast on big tables.",
+  "language": "sql",
+  "code": "-- Offset pagination (page 3, 20 per page) — PostgreSQL / MySQL / SQLite\nSELECT * FROM posts ORDER BY id LIMIT 20 OFFSET 40;\n\n-- SQL Server\nSELECT * FROM posts ORDER BY id OFFSET 40 ROWS FETCH NEXT 20 ROWS ONLY;\n\n-- Keyset pagination: pass the last id you saw\nSELECT * FROM posts WHERE id > :last_id ORDER BY id LIMIT 20;\n",
+  "tags": ["limit", "offset", "pagination"],
+  "source": "https://www.postgresql.org/docs/current/queries-limit.html",
+  "verified": "2026-11"
+}
