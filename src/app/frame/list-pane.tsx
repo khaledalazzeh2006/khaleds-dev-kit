@@ -1,6 +1,6 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Search } from "lucide-react";
+import { Search, Star } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/kbd";
@@ -9,20 +9,28 @@ import { fuzzyMatch } from "@/lib/search/fuzzy";
 import { isTypingTarget, matchesHotkey } from "@/lib/hotkeys";
 import { copyText } from "@/lib/clipboard";
 import { useUi } from "@/lib/store/ui";
+import { useLibrary } from "@/lib/store/library";
+import { modLabel } from "@/lib/platform";
+import { canFavorite } from "../favorites";
 import { cn } from "@/lib/utils";
 import { resolveCopyValue, type DevKitModule, type ModuleItem } from "../module";
 
 interface ListPaneProps {
   module: DevKitModule;
+  /** The module's current items (from useModuleItems, so runtime changes show up). */
+  items: ModuleItem[];
   activeItemId: string;
   className?: string;
 }
 
 /** The module's items with a fuzzy filter. "/" focuses the filter, ↑↓ move, Enter copies/opens. */
-export function ListPane({ module, activeItemId, className }: ListPaneProps) {
+export function ListPane({ module, items, activeItemId, className }: ListPaneProps) {
   const navigate = useNavigate();
   const { setNarrowView, setPaletteOpen, pushRecent } = useUi.getState();
   const [query, setQuery] = useState("");
+  const favorites = useLibrary((s) => s.favorites);
+  const toggleFavorite = useLibrary((s) => s.toggleFavorite);
+  const starrable = canFavorite(module.id);
   const inputRef = useRef<HTMLInputElement>(null);
   const activeRef = useRef<HTMLButtonElement>(null);
 
@@ -34,7 +42,6 @@ export function ListPane({ module, activeItemId, className }: ListPaneProps) {
   }, [activeItemId]);
 
   const results = useMemo(() => {
-    const items = module.items();
     if (!query.trim()) return items.map((item) => ({ item, indices: [] as number[] }));
     return items
       .map((item) => {
@@ -47,7 +54,7 @@ export function ListPane({ module, activeItemId, className }: ListPaneProps) {
       .filter((r) => r !== null)
       .sort((a, b) => b.score - a.score)
       .map(({ item, indices }) => ({ item, indices }));
-  }, [module, query]);
+  }, [items, query]);
 
   // "/" focuses the filter from anywhere (unless already typing).
   useEffect(() => {
@@ -129,6 +136,8 @@ export function ListPane({ module, activeItemId, className }: ListPaneProps) {
         <ul role="listbox" aria-label={module.title} className="flex-1 overflow-y-auto p-1.5">
           {results.map(({ item, indices }, i) => {
             const active = item.id === activeItemId;
+            const favKey = `${module.id}:${item.id}`;
+            const starred = starrable && favorites.includes(favKey);
             const showGroup =
               !query.trim() && item.group && item.group !== results[i - 1]?.item.group;
             return (
@@ -141,12 +150,13 @@ export function ListPane({ module, activeItemId, className }: ListPaneProps) {
                     {item.group}
                   </li>
                 )}
-                <li role="option" aria-selected={active}>
+                <li role="option" aria-selected={active} className="group/row relative">
                   <button
                     ref={active ? activeRef : undefined}
                     onClick={() => activate(item)}
                     className={cn(
                       "flex w-full flex-col gap-0.5 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-accent",
+                      starrable && "pr-9",
                       active && "bg-accent",
                     )}
                   >
@@ -171,6 +181,27 @@ export function ListPane({ module, activeItemId, className }: ListPaneProps) {
                       </span>
                     )}
                   </button>
+                  {starrable && (
+                    <button
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => toggleFavorite(favKey)}
+                      aria-label={
+                        starred
+                          ? `Remove ${item.title} from favorites`
+                          : `Add ${item.title} to favorites`
+                      }
+                      aria-pressed={starred}
+                      title={`${starred ? "Remove from" : "Add to"} favorites (${modLabel}+D)`}
+                      className={cn(
+                        "absolute top-1/2 right-1.5 grid size-7 -translate-y-1/2 place-items-center rounded-md text-muted-foreground opacity-0 transition hover:bg-background hover:text-foreground group-hover/row:opacity-100 focus-visible:opacity-100",
+                        (starred || active) && "opacity-100",
+                        starred && "text-warning hover:text-warning",
+                      )}
+                    >
+                      <Star className={cn("size-3.5", starred && "fill-current")} />
+                    </button>
+                  )}
                 </li>
               </Fragment>
             );

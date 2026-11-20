@@ -1,6 +1,6 @@
 # Progress
 
-**Current phase:** 7.5 — Templates (waiting for Khaled to test)
+**Current phase:** 8 — My Library (waiting for Khaled to test)
 **Last updated:** 2026-11-20
 
 ## Done
@@ -80,14 +80,25 @@
 - [x] Verified: all 16 template×provider Prisma schemas pass Prisma's validator; DDL + seeds run in SQLite with foreign_keys=ON; 101 tests
 - [x] Checked by Khaled on Windows, committed
 
-## Phase 7.5 — Templates (built, waiting for Khaled's check)
+## Phase 7.5 — Templates (done)
 - [x] Module `templates` (order 60): 11 presets (Landing, E-commerce, Product, Cart, Dashboard, Portfolio, Blog home, Blog article, Login, Sign up, Forgot password) built from 30 reusable sections
 - [x] Builder: add / remove (Undo) / reorder sections, brand name + color, light/dark, corners, font; live preview at desktop/tablet/phone widths; Code view of every exported file
 - [x] Export .zip: React (Vite + TS + Tailwind v4), Next.js 16 (App Router, Server Components), or plain HTML + compiled CSS
 - [x] Tailwind compiled inside the app, offline (no CDN); navbar links follow the sections on the page; no JS needed in exported sites (menus/FAQ use <details>)
 - [x] Verified: every class name is a real Tailwind utility, every section is valid JSX; an export with all 30 sections passes `tsc` + `vite build`, a Next.js export passes `next build`; 140 tests; screenshots checked
 - [x] New skill: .claude/skills/templates/SKILL.md
-- [ ] Checked by Khaled on Windows (`pnpm install` first — new deps fflate, tailwindcss moved to dependencies)
+- [x] Checked by Khaled on Windows, committed
+
+## Phase 8 — My Library (built, waiting for Khaled's check)
+- [x] Module `library` (order 70): Import & export page, Favorites, My snippets; items change live (new `watch` on DevKitModule + `useModuleItems`; search index rebuilds on change)
+- [x] Favorites: ☆ on every list row (outside My Library) or Mod D; a favorite opens its own tool inside My Library with "Open in …" / Unstar
+- [x] "Save" next to Copy on every OutputCode → snippet named after the open tool (no duplicates; toast with Open)
+- [x] Snippet editor: title, language, VS Code prefix (follows the title until edited), tags, description, code editor; autosave; Delete with Undo; copy as a VS Code entry
+- [x] VS Code: export `.code-snippets` (scopes per language, `$` escaped, `$1`/`${1:x}` kept as tab stops by choice), import `.code-snippets` / per-language JSONC files
+- [x] Backup: export/import JSON (merge, never overwrite); stored in localStorage (`devkit-library`)
+- [x] `src/lib/module-lookup.ts` lets a module find others without importing the registry (no import cycle)
+- [x] 148 tests; screenshots checked (star, Mod D, Save toast, favorites view, editor, Mod K finds snippets)
+- [ ] Checked by Khaled on Windows
 
 ## Open questions / later
 - Khaled's Node.js is managed by **fnm** (default v26). Fixed for every shell by adding `%APPDATA%\fnm\aliases\default` to the user PATH (pnpm is installed globally there). If node/pnpm go missing after changing Node versions, check that folder first.
@@ -96,6 +107,7 @@
 - Package-manager switch (npm ↔ pnpm ↔ yarn) on install commands — later; for now npm and pnpm have their own lists.
 - Prisma 8 is in RC; commands target Prisma 7 (stable). Re-check when 8 is GA.
 - shadcn registry is blocked in Claude's sandbox: button/tooltip/dialog/input were written by hand in shadcn style. On Windows, `pnpm dlx shadcn@latest add <x>` works normally.
+- Library lives in localStorage; Phase 9/10: write the VS Code snippets file directly (fs scope) and consider a file-based store with automatic backups.
 - Clipboard uses navigator.clipboard; switch to the Tauri clipboard plugin if WebView2/macOS ever refuses.
 - CSP is `null` in tauri.conf.json for now → set a strict CSP in Phase 10.
 - productName is `Khaleds Dev Kit` (no apostrophe, safer for installers); window title keeps "Khaled's".
@@ -114,7 +126,7 @@
 | 5 GSAP & Scroll | done | 2026-11-20 |
 | 6 Responsive Tools | done | 2026-11-20 |
 | 7 Database | done | 2026-11-20 |
-| 7.5 Templates | built | 2026-11-20, waiting for Windows check |
-| 8 My Library + VS Code snippet export | — | |
+| 7.5 Templates | done | 2026-11-20 |
+| 8 My Library + VS Code snippet export | built | 2026-11-20, waiting for Windows check |
 | 9 Integrations (DB connect, run commands, VS Code extension) | — | |
 | 10 Polish (installer, auto-update, perf) | — | |

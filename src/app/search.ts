@@ -16,12 +16,18 @@ function collectEntries(): SearchEntry[] {
   );
 }
 
-let cache: { entries: SearchEntry[]; index: ReturnType<typeof createSearchIndex> } | null = null;
+let cache: {
+  key: string;
+  entries: SearchEntry[];
+  index: ReturnType<typeof createSearchIndex>;
+} | null = null;
 
+/** Rebuilt only when a module with changing items (My Library) reports a new version. */
 export function getSearch() {
-  if (!cache) {
+  const key = modules.map((m) => m.watch?.version() ?? 0).join(",");
+  if (!cache || cache.key !== key) {
     const entries = collectEntries();
-    cache = { entries, index: createSearchIndex(entries) };
+    cache = { key, entries, index: createSearchIndex(entries) };
   }
   return cache;
 }

@@ -37,6 +37,11 @@ export interface DevKitModule {
   order: number;
   /** Items for the list pane. Must return at least one item. */
   items: () => ModuleItem[];
+  /**
+   * Only for modules whose items change at runtime (e.g. My Library): the shell re-reads
+   * items() whenever version() changes.
+   */
+  watch?: { subscribe: (onChange: () => void) => () => void; version: () => number };
   /** Renders the selected item in the detail pane. Use React.lazy to keep startup fast. */
   Detail: ComponentType<DetailProps> | LazyExoticComponent<ComponentType<DetailProps>>;
 }

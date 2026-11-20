@@ -27,11 +27,12 @@ interface DevKitModule {
   icon: LucideIcon;
   order: number;         // sidebar position + Mod 1..9
   items: () => ModuleItem[];            // list pane; at least one item
+  watch?: { subscribe, version };       // only if items change at runtime (see modules/library)
   Detail: ComponentType<DetailProps> | LazyExoticComponent<...>; // renders { item }
 }
 ```
 The shell does the rest: sidebar entry, routes (`/<id>/<itemId>`), list pane with fuzzy filter,
-Mod K search entries (built from `items()`), recent history. References: `src/modules/converters/`
+Mod K search entries (built from `items()`), recent history, favorites (☆ / Mod D → My Library). References: `src/modules/converters/`
 (tools) and `src/modules/commands/` (content-driven, grouped list, copy-on-Enter).
 
 ## Steps

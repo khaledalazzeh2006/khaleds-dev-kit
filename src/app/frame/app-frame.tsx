@@ -1,11 +1,16 @@
-import { useParams } from "@tanstack/react-router";
+import { Navigate, useParams } from "@tanstack/react-router";
+import { toast } from "sonner";
 import { useUi } from "@/lib/store/ui";
+import { useLibrary } from "@/lib/store/library";
+import { isTypingTarget, useHotkeys } from "@/lib/hotkeys";
 import { cn } from "@/lib/utils";
 import { getModule } from "../registry";
 import { TitleBar } from "./title-bar";
 import { Sidebar } from "./sidebar";
 import { ListPane } from "./list-pane";
 import { DetailPane } from "./detail-pane";
+import { useModuleItems } from "../use-module-items";
+import { canFavorite } from "../favorites";
 
 /**
  * Three panes: Sidebar → List → Detail. Responds to the WINDOW width via container queries:
@@ -15,8 +20,21 @@ export function AppFrame() {
   const { moduleId, itemId } = useParams({ from: "/$moduleId/$itemId" });
   const narrowView = useUi((s) => s.narrowView);
   const module = getModule(moduleId);
-  const item = module?.items().find((i) => i.id === itemId);
-  if (!module || !item) return null;
+  const items = useModuleItems(module);
+  const item = items.find((i) => i.id === itemId);
+
+  useHotkeys({
+    "mod+d": (e) => {
+      if (!module || !item || !canFavorite(module.id) || isTypingTarget(e.target)) return;
+      e.preventDefault();
+      const on = useLibrary.getState().toggleFavorite(`${module.id}:${item.id}`);
+      toast(on ? `★ Added “${item.title}” to favorites` : `Removed “${item.title}” from favorites`);
+    },
+  });
+
+  if (!module) return null;
+  // The item can disappear while open (a library snippet was deleted): go to the module.
+  if (!item) return <Navigate to="/$moduleId" params={{ moduleId: module.id }} />;
 
   return (
     <div className="@container flex h-full flex-col">
@@ -26,6 +44,7 @@ export function AppFrame() {
         <ListPane
           key={module.id} // fresh filter per module
           module={module}
+          items={items}
           activeItemId={item.id}
           className={cn(narrowView === "list" ? "flex" : "hidden", "@min-[760px]:flex")}
         />

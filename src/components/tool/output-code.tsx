@@ -1,8 +1,11 @@
 import { useEffect, useState } from "react";
-import { Check, Copy } from "lucide-react";
+import { BookmarkPlus, Check, Copy } from "lucide-react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { copyText } from "@/lib/clipboard";
 import { useActiveOutput } from "@/lib/store/output";
+import { useActiveItem } from "@/lib/store/active-item";
+import { snippetLanguageFor, useLibrary } from "@/lib/store/library";
 import { cn } from "@/lib/utils";
 import { CodeInput, type CodeLanguage } from "./code-input";
 
@@ -15,10 +18,51 @@ interface OutputCodeProps {
   /** Extra info shown next to the label, e.g. "1.2 KB → 840 B". */
   meta?: string;
   className?: string;
+  /** Show "Save" (to My Library). Default true. */
+  saveable?: boolean;
+}
+
+/** Hash route of a library snippet (hash history, so this works without the router object). */
+const librarySnippetHref = (id: string) => `#/library/s-${id}`;
+
+/** Save output to My Library, named after the open tool. Same code twice = no duplicate. */
+function saveToLibrary(
+  code: string,
+  label: string | undefined,
+  language: CodeLanguage | undefined,
+) {
+  const { moduleTitle, itemTitle } = useActiveItem.getState();
+  const lib = useLibrary.getState();
+  const existing = lib.snippets.find((s) => s.code === code);
+  const title =
+    label && itemTitle && !itemTitle.toLowerCase().includes(label.toLowerCase())
+      ? `${itemTitle} · ${label}`
+      : itemTitle || label || "Snippet";
+  const snippet =
+    existing ??
+    lib.addSnippet({
+      code,
+      title,
+      language: snippetLanguageFor(language),
+      source: [moduleTitle, itemTitle].filter(Boolean).join(" · ") || undefined,
+    });
+  toast(existing ? "Already in My Library" : `Saved “${snippet.title}” to My Library`, {
+    action: {
+      label: "Open",
+      onClick: () => (window.location.hash = librarySnippetHref(snippet.id)),
+    },
+  });
 }
 
 /** Code block with the standard Copy button (top-right). Registers itself for Mod C. */
-export function OutputCode({ code, label, language, meta, className }: OutputCodeProps) {
+export function OutputCode({
+  code,
+  label,
+  language,
+  meta,
+  className,
+  saveable = true,
+}: OutputCodeProps) {
   const [copied, setCopied] = useState(false);
   const setActive = useActiveOutput((s) => s.set);
 
@@ -40,16 +84,30 @@ export function OutputCode({ code, label, language, meta, className }: OutputCod
           {label}
           {meta && <span className="ml-2 text-muted-foreground/70">{meta}</span>}
         </span>
-        <Button
-          variant="ghost"
-          size="sm"
-          disabled={!code}
-          onClick={async () => setCopied(await copyText(code))}
-          aria-label="Copy code"
-        >
-          {copied ? <Check className="text-success" /> : <Copy />}
-          {copied ? "Copied" : "Copy"}
-        </Button>
+        <span className="flex shrink-0 items-center">
+          {saveable && (
+            <Button
+              variant="ghost"
+              size="sm"
+              disabled={!code}
+              onClick={() => saveToLibrary(code, label, language)}
+              aria-label="Save to My Library"
+              title="Save to My Library"
+            >
+              <BookmarkPlus /> Save
+            </Button>
+          )}
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled={!code}
+            onClick={async () => setCopied(await copyText(code))}
+            aria-label="Copy code"
+          >
+            {copied ? <Check className="text-success" /> : <Copy />}
+            {copied ? "Copied" : "Copy"}
+          </Button>
+        </span>
       </div>
       {language ? (
         <CodeInput

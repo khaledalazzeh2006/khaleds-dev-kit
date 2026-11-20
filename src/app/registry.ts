@@ -1,4 +1,5 @@
 import type { DevKitModule } from "./module";
+import { setModuleLookup } from "@/lib/module-lookup";
 import { commandsModule } from "@/modules/commands";
 import { convertersModule } from "@/modules/converters";
 import { formattersModule } from "@/modules/formatters";
@@ -8,6 +9,7 @@ import { gsapModule } from "@/modules/gsap";
 import { responsiveModule } from "@/modules/responsive";
 import { databaseModule } from "@/modules/database";
 import { templatesModule } from "@/modules/templates";
+import { libraryModule } from "@/modules/library";
 
 /** Every module in the app. Adding a module = one import + one entry here. */
 export const modules: DevKitModule[] = [
@@ -20,8 +22,11 @@ export const modules: DevKitModule[] = [
   designModule,
   responsiveModule,
   templatesModule,
+  libraryModule,
 ].sort((a, b) => a.order - b.order);
 
 export function getModule(id: string | undefined): DevKitModule | undefined {
   return modules.find((m) => m.id === id);
 }
+
+setModuleLookup(getModule);

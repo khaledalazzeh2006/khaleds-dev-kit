@@ -10,6 +10,7 @@ import type { SearchEntry } from "@/lib/search/search-index";
 import { getModule, modules } from "./registry";
 import { resolveCopyValue } from "./module";
 import { getSearch } from "./search";
+import { useLibrary } from "@/lib/store/library";
 
 const MAX_PER_GROUP = 8;
 
@@ -18,6 +19,7 @@ export function CommandPalette() {
   const navigate = useNavigate();
   const { paletteOpen, setPaletteOpen, recent, pushRecent, setNarrowView } = useUi();
   const [query, setQuery] = useState("");
+  const libraryRev = useLibrary((s) => s.rev);
 
   const groups = useMemo(() => {
     const { entries, index } = getSearch();
@@ -39,7 +41,8 @@ export function CommandPalette() {
         entries: hits.filter((h) => h.moduleId === m.id).slice(0, MAX_PER_GROUP),
       }))
       .filter((g) => g.entries.length);
-  }, [query, recent]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- libraryRev: re-search after library edits
+  }, [query, recent, libraryRev]);
 
   const close = () => {
     setPaletteOpen(false);
