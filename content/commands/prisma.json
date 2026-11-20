@@ -1,0 +1,223 @@
+[
+  {
+    "id": "prisma-install",
+    "framework": "prisma",
+    "title": "Install Prisma",
+    "command": "npm install -D prisma && npm install @prisma/client",
+    "description": "Adds the Prisma CLI and the client library.",
+    "platforms": {
+      "windows": "npm install -D prisma; npm install @prisma/client"
+    },
+    "tags": ["setup"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-init",
+    "framework": "prisma",
+    "title": "Initialize Prisma",
+    "command": "npx prisma init --datasource-provider {{provider}}",
+    "description": "Creates the schema, prisma.config.ts and .env.",
+    "vars": [
+      {
+        "key": "provider",
+        "default": "postgresql",
+        "label": "postgresql | mysql | sqlite | sqlserver | mongodb"
+      }
+    ],
+    "tags": ["setup"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-generate",
+    "framework": "prisma",
+    "title": "Generate Prisma Client",
+    "command": "npx prisma generate",
+    "description": "Regenerates the client after schema changes. Not run automatically in v7.",
+    "flags": [
+      {
+        "flag": "--watch",
+        "desc": "Regenerate on every schema change"
+      }
+    ],
+    "tags": ["client"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-migrate-dev",
+    "framework": "prisma",
+    "title": "Create and apply a migration",
+    "command": "npx prisma migrate dev --name {{name}}",
+    "description": "Diffs the schema, writes a migration and applies it to the dev database.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "add_users",
+        "label": "Migration name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--create-only",
+        "desc": "Write the SQL without applying it"
+      }
+    ],
+    "tags": ["migrate"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-migrate-deploy",
+    "framework": "prisma",
+    "title": "Apply migrations in production",
+    "command": "npx prisma migrate deploy",
+    "description": "Applies pending migrations; use in CI/production.",
+    "tags": ["migrate", "production"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-migrate-status",
+    "framework": "prisma",
+    "title": "Check migration status",
+    "command": "npx prisma migrate status",
+    "description": "Shows pending or diverged migrations.",
+    "tags": ["migrate"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-migrate-reset",
+    "framework": "prisma",
+    "title": "Reset the dev database",
+    "command": "npx prisma migrate reset",
+    "description": "Drops the database and re-applies all migrations. Deletes all data.",
+    "flags": [
+      {
+        "flag": "--force",
+        "desc": "Skip the confirmation prompt"
+      }
+    ],
+    "tags": ["migrate"],
+    "danger": true,
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-migrate-resolve",
+    "framework": "prisma",
+    "title": "Mark a failed migration",
+    "command": "npx prisma migrate resolve --applied {{migration}}",
+    "description": "Marks a failed migration as applied (or --rolled-back).",
+    "vars": [
+      {
+        "key": "migration",
+        "default": "20240101000000_name",
+        "label": "Migration folder"
+      }
+    ],
+    "tags": ["migrate"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-db-push",
+    "framework": "prisma",
+    "title": "Push schema without migrations",
+    "command": "npx prisma db push",
+    "description": "Syncs the schema to the database without migration history; for prototyping.",
+    "flags": [
+      {
+        "flag": "--accept-data-loss",
+        "desc": "Allow changes that drop data"
+      },
+      {
+        "flag": "--force-reset",
+        "desc": "Reset the database first"
+      }
+    ],
+    "tags": ["db"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-db-pull",
+    "framework": "prisma",
+    "title": "Introspect an existing database",
+    "command": "npx prisma db pull",
+    "description": "Overwrites schema.prisma from the current database structure.",
+    "flags": [
+      {
+        "flag": "--print",
+        "desc": "Preview without writing"
+      }
+    ],
+    "tags": ["db"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-db-seed",
+    "framework": "prisma",
+    "title": "Seed the database",
+    "command": "npx prisma db seed",
+    "description": "Runs the seed command from the Prisma config. Not automatic in v7.",
+    "tags": ["db"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-studio",
+    "framework": "prisma",
+    "title": "Open Prisma Studio",
+    "command": "npx prisma studio",
+    "description": "Opens a visual data browser (port 5555).",
+    "flags": [
+      {
+        "flag": "--port 5556",
+        "desc": "Use another port"
+      }
+    ],
+    "tags": ["tools"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-format",
+    "framework": "prisma",
+    "title": "Format the schema",
+    "command": "npx prisma format",
+    "description": "Formats and validates schema.prisma.",
+    "flags": [
+      {
+        "flag": "--check",
+        "desc": "Fail if not formatted (CI)"
+      }
+    ],
+    "tags": ["tools"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-validate",
+    "framework": "prisma",
+    "title": "Validate the schema",
+    "command": "npx prisma validate",
+    "description": "Checks schema.prisma for errors.",
+    "tags": ["tools"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  },
+  {
+    "id": "prisma-version",
+    "framework": "prisma",
+    "title": "Show Prisma versions",
+    "command": "npx prisma version",
+    "description": "Prints Prisma CLI, client and engine versions.",
+    "tags": ["inspect"],
+    "source": "https://www.prisma.io/docs/orm/v7/reference/prisma-cli-reference",
+    "verified": "2026-11"
+  }
+]

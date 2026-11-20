@@ -1,0 +1,183 @@
+[
+  {
+    "id": "nextjs-create",
+    "framework": "nextjs",
+    "title": "Create a Next.js app",
+    "command": "npx create-next-app@latest {{name}}",
+    "description": "Scaffolds a new Next.js project with interactive prompts.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "my-app",
+        "label": "Project name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--yes",
+        "desc": "Use defaults for every prompt"
+      },
+      {
+        "flag": "--ts",
+        "desc": "TypeScript (default)"
+      },
+      {
+        "flag": "--tailwind",
+        "desc": "Tailwind CSS"
+      },
+      {
+        "flag": "--app",
+        "desc": "App Router"
+      },
+      {
+        "flag": "--src-dir",
+        "desc": "Put code in src/"
+      },
+      {
+        "flag": "--eslint",
+        "desc": "ESLint config"
+      },
+      {
+        "flag": "--biome",
+        "desc": "Biome config"
+      },
+      {
+        "flag": "--empty",
+        "desc": "Empty project"
+      },
+      {
+        "flag": "--use-pnpm",
+        "desc": "Install with pnpm"
+      },
+      {
+        "flag": "--skip-install",
+        "desc": "Don't install packages"
+      },
+      {
+        "flag": "--disable-git",
+        "desc": "Don't init git"
+      }
+    ],
+    "tags": ["setup", "scaffold"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/create-next-app",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nextjs-create-example",
+    "framework": "nextjs",
+    "title": "Create from an official example",
+    "command": "npx create-next-app@latest {{name}} --example {{example}}",
+    "description": "Bootstraps from an example in the Next.js repository.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "my-app",
+        "label": "Project name"
+      },
+      {
+        "key": "example",
+        "default": "with-supabase",
+        "label": "Example name"
+      }
+    ],
+    "tags": ["setup", "scaffold"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/create-next-app",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nextjs-dev",
+    "framework": "nextjs",
+    "title": "Start the dev server",
+    "command": "npx next dev",
+    "description": "Starts development mode with hot reloading (Turbopack by default).",
+    "flags": [
+      {
+        "flag": "-p 4000",
+        "desc": "Use another port"
+      },
+      {
+        "flag": "--webpack",
+        "desc": "Use Webpack instead of Turbopack"
+      },
+      {
+        "flag": "-H 0.0.0.0",
+        "desc": "Expose on your network"
+      }
+    ],
+    "tags": ["run"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/next",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nextjs-build",
+    "framework": "nextjs",
+    "title": "Build for production",
+    "command": "npx next build",
+    "description": "Creates an optimized production build.",
+    "flags": [
+      {
+        "flag": "--webpack",
+        "desc": "Build with Webpack"
+      },
+      {
+        "flag": "--debug",
+        "desc": "Verbose build output"
+      }
+    ],
+    "tags": ["build"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/next",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nextjs-start",
+    "framework": "nextjs",
+    "title": "Start the production server",
+    "command": "npx next start",
+    "description": "Serves the app built with next build.",
+    "flags": [
+      {
+        "flag": "-p 4000",
+        "desc": "Use another port"
+      }
+    ],
+    "tags": ["run"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/next",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nextjs-typegen",
+    "framework": "nextjs",
+    "title": "Generate route types",
+    "command": "npx next typegen",
+    "description": "Generates TypeScript types for routes without a full build.",
+    "tags": ["types"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/next",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nextjs-info",
+    "framework": "nextjs",
+    "title": "Print system info for bug reports",
+    "command": "npx next info",
+    "description": "Prints OS, Node and package versions for bug reports.",
+    "flags": [
+      {
+        "flag": "--verbose",
+        "desc": "Extra debugging details"
+      }
+    ],
+    "tags": ["inspect"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/next",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nextjs-telemetry-disable",
+    "framework": "nextjs",
+    "title": "Disable telemetry",
+    "command": "npx next telemetry disable",
+    "description": "Turns off Next.js anonymous telemetry.",
+    "tags": ["config"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/next",
+    "verified": "2026-11"
+  }
+]

@@ -10,7 +10,7 @@ function collectEntries(): SearchEntry[] {
       itemId: item.id,
       title: item.title,
       description: item.description,
-      keywords: [...(item.keywords ?? []), ...(item.tags ?? []), m.title],
+      keywords: [...(item.keywords ?? []), ...(item.tags ?? []), item.group ?? "", m.title],
       copyValue: item.copyValue,
     })),
   );

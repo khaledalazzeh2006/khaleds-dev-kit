@@ -1,0 +1,160 @@
+[
+  {
+    "id": "gltf-transform-install",
+    "framework": "gltf-transform",
+    "title": "Install the glTF Transform CLI",
+    "command": "npm install --global @gltf-transform/cli",
+    "description": "Installs the gltf-transform command globally.",
+    "tags": ["setup", "global"],
+    "source": "https://gltf-transform.dev/cli",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltf-transform-inspect",
+    "framework": "gltf-transform",
+    "title": "Inspect a model",
+    "command": "gltf-transform inspect {{input}}",
+    "description": "Prints meshes, textures, sizes and stats for a model.",
+    "vars": [
+      {
+        "key": "input",
+        "default": "model.glb",
+        "label": "Input"
+      }
+    ],
+    "tags": ["inspect"],
+    "source": "https://gltf-transform.dev/cli",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltf-transform-optimize",
+    "framework": "gltf-transform",
+    "title": "Optimize everything at once",
+    "command": "gltf-transform optimize {{input}} {{output}} --compress draco --texture-compress webp",
+    "description": "Runs the most common optimizations in one step.",
+    "vars": [
+      {
+        "key": "input",
+        "default": "model.glb",
+        "label": "Input"
+      },
+      {
+        "key": "output",
+        "default": "model.min.glb",
+        "label": "Output"
+      }
+    ],
+    "tags": ["optimize"],
+    "source": "https://gltf-transform.dev/cli",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltf-transform-draco",
+    "framework": "gltf-transform",
+    "title": "Compress geometry with Draco",
+    "command": "gltf-transform draco {{input}} {{output}}",
+    "description": "Compresses mesh geometry with Draco.",
+    "vars": [
+      {
+        "key": "input",
+        "default": "model.glb",
+        "label": "Input"
+      },
+      {
+        "key": "output",
+        "default": "model.draco.glb",
+        "label": "Output"
+      }
+    ],
+    "tags": ["compress"],
+    "source": "https://gltf-transform.dev/cli",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltf-transform-meshopt",
+    "framework": "gltf-transform",
+    "title": "Compress with Meshopt",
+    "command": "gltf-transform meshopt {{input}} {{output}} --level medium",
+    "description": "Compresses geometry, morph targets and animation.",
+    "vars": [
+      {
+        "key": "input",
+        "default": "model.glb",
+        "label": "Input"
+      },
+      {
+        "key": "output",
+        "default": "model.meshopt.glb",
+        "label": "Output"
+      }
+    ],
+    "tags": ["compress"],
+    "source": "https://gltf-transform.dev/cli",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltf-transform-resize",
+    "framework": "gltf-transform",
+    "title": "Resize textures",
+    "command": "gltf-transform resize {{input}} {{output}} --width {{size}} --height {{size}}",
+    "description": "Scales textures down to a maximum size.",
+    "vars": [
+      {
+        "key": "input",
+        "default": "model.glb",
+        "label": "Input"
+      },
+      {
+        "key": "output",
+        "default": "model.glb",
+        "label": "Output"
+      },
+      {
+        "key": "size",
+        "default": "1024",
+        "label": "Max size (px)"
+      }
+    ],
+    "tags": ["textures"],
+    "source": "https://gltf-transform.dev/cli",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltf-transform-webp",
+    "framework": "gltf-transform",
+    "title": "Convert textures to WebP",
+    "command": "gltf-transform webp {{input}} {{output}}",
+    "description": "Compresses textures with WebP.",
+    "vars": [
+      {
+        "key": "input",
+        "default": "model.glb",
+        "label": "Input"
+      },
+      {
+        "key": "output",
+        "default": "model.webp.glb",
+        "label": "Output"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--slots \"baseColor\"",
+        "desc": "Only the base color textures"
+      }
+    ],
+    "tags": ["textures"],
+    "source": "https://gltf-transform.dev/cli",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltf-transform-help",
+    "framework": "gltf-transform",
+    "title": "List all commands",
+    "command": "gltf-transform --help",
+    "description": "Shows every available gltf-transform command.",
+    "tags": ["inspect"],
+    "source": "https://gltf-transform.dev/cli",
+    "verified": "2026-11"
+  }
+]

@@ -1,0 +1,254 @@
+[
+  {
+    "id": "npm-init",
+    "framework": "npm",
+    "title": "Create package.json",
+    "command": "npm init -y",
+    "description": "Creates a package.json with default values.",
+    "tags": ["setup"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-init",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-install",
+    "framework": "npm",
+    "title": "Install all dependencies",
+    "command": "npm install",
+    "description": "Installs everything listed in package.json.",
+    "tags": ["install"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-install",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-ci",
+    "framework": "npm",
+    "title": "Clean install from lockfile",
+    "command": "npm ci",
+    "description": "Installs exactly what package-lock.json says; for CI and fresh clones.",
+    "tags": ["install", "ci"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-ci",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-add",
+    "framework": "npm",
+    "title": "Add a dependency",
+    "command": "npm install {{pkg}}",
+    "description": "Installs a package and saves it to dependencies.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "express",
+        "label": "Package"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "-E",
+        "desc": "Save the exact version"
+      },
+      {
+        "flag": "--no-save",
+        "desc": "Install without adding to package.json"
+      }
+    ],
+    "tags": ["install"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-install",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-add-dev",
+    "framework": "npm",
+    "title": "Add a dev dependency",
+    "command": "npm install -D {{pkg}}",
+    "description": "Installs a package and saves it to devDependencies.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "typescript",
+        "label": "Package"
+      }
+    ],
+    "tags": ["install"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-install",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-add-global",
+    "framework": "npm",
+    "title": "Install a package globally",
+    "command": "npm install -g {{pkg}}",
+    "description": "Installs a CLI tool for the whole machine.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "@nestjs/cli",
+        "label": "Package"
+      }
+    ],
+    "tags": ["install", "global"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-install",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-uninstall",
+    "framework": "npm",
+    "title": "Remove a dependency",
+    "command": "npm uninstall {{pkg}}",
+    "description": "Removes a package and deletes it from package.json.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "lodash",
+        "label": "Package"
+      }
+    ],
+    "tags": ["remove"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-uninstall",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-run",
+    "framework": "npm",
+    "title": "Run a script",
+    "command": "npm run {{script}}",
+    "description": "Runs a script from package.json.",
+    "vars": [
+      {
+        "key": "script",
+        "default": "dev",
+        "label": "Script"
+      }
+    ],
+    "tags": ["scripts"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-run",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-outdated",
+    "framework": "npm",
+    "title": "List outdated packages",
+    "command": "npm outdated",
+    "description": "Shows installed packages that have newer versions.",
+    "tags": ["update"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-outdated",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-update",
+    "framework": "npm",
+    "title": "Update packages",
+    "command": "npm update",
+    "description": "Updates packages within the ranges allowed by package.json.",
+    "tags": ["update"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-update",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-ls",
+    "framework": "npm",
+    "title": "List installed packages",
+    "command": "npm ls --depth=0",
+    "description": "Shows the top-level installed packages and versions.",
+    "tags": ["inspect"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-ls",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-explain",
+    "framework": "npm",
+    "title": "Why is a package installed",
+    "command": "npm explain {{pkg}}",
+    "description": "Shows which dependencies pulled a package in.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "react",
+        "label": "Package"
+      }
+    ],
+    "tags": ["inspect"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-explain",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-audit",
+    "framework": "npm",
+    "title": "Check for vulnerabilities",
+    "command": "npm audit",
+    "description": "Reports known security issues in installed packages.",
+    "flags": [
+      {
+        "flag": "--omit=dev",
+        "desc": "Only production dependencies"
+      }
+    ],
+    "tags": ["security"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-audit",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-audit-fix",
+    "framework": "npm",
+    "title": "Fix vulnerabilities",
+    "command": "npm audit fix",
+    "description": "Upgrades vulnerable packages to compatible fixed versions.",
+    "tags": ["security"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-audit",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-npx",
+    "framework": "npm",
+    "title": "Run a package without installing",
+    "command": "npx {{pkg}}",
+    "description": "Downloads and runs a package binary once.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "serve dist",
+        "label": "Package and args"
+      }
+    ],
+    "tags": ["run"],
+    "source": "https://docs.npmjs.com/cli/commands/npx",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-cache-clean",
+    "framework": "npm",
+    "title": "Clear the npm cache",
+    "command": "npm cache clean --force",
+    "description": "Deletes npm's download cache; use when installs are corrupted.",
+    "tags": ["cache"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-cache",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-version-bump",
+    "framework": "npm",
+    "title": "Bump the package version",
+    "command": "npm version {{level}}",
+    "description": "Increments the version in package.json and creates a git tag.",
+    "vars": [
+      {
+        "key": "level",
+        "default": "patch",
+        "label": "patch | minor | major"
+      }
+    ],
+    "tags": ["release"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-version",
+    "verified": "2026-11"
+  },
+  {
+    "id": "npm-config-list",
+    "framework": "npm",
+    "title": "Show npm config",
+    "command": "npm config list",
+    "description": "Prints the active npm configuration.",
+    "tags": ["config"],
+    "source": "https://docs.npmjs.com/cli/commands/npm-config",
+    "verified": "2026-11"
+  }
+]

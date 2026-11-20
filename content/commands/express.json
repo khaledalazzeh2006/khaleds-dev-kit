@@ -1,0 +1,106 @@
+[
+  {
+    "id": "express-init",
+    "framework": "express",
+    "title": "Start a new Express project",
+    "command": "mkdir {{name}} && cd {{name}} && npm init -y && npm install express",
+    "description": "Creates a folder, a package.json and installs Express.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "api",
+        "label": "Folder name"
+      }
+    ],
+    "platforms": {
+      "windows": "mkdir {{name}}; cd {{name}}; npm init -y; npm install express"
+    },
+    "tags": ["setup"],
+    "source": "https://expressjs.com/en/starter/installing.html",
+    "verified": "2026-11"
+  },
+  {
+    "id": "express-install",
+    "framework": "express",
+    "title": "Install Express",
+    "command": "npm install express",
+    "description": "Adds Express to an existing project.",
+    "tags": ["install"],
+    "source": "https://expressjs.com/en/starter/installing.html",
+    "verified": "2026-11"
+  },
+  {
+    "id": "express-install-5",
+    "framework": "express",
+    "title": "Upgrade to Express 5",
+    "command": "npm install \"express@5\"",
+    "description": "Installs Express 5 (needs Node.js 18+).",
+    "tags": ["install", "upgrade"],
+    "source": "https://expressjs.com/en/guide/migrating-5",
+    "verified": "2026-11"
+  },
+  {
+    "id": "express-v5-codemod",
+    "framework": "express",
+    "title": "Run the Express 5 migration codemods",
+    "command": "npx codemod@latest @expressjs/v5-migration-recipe",
+    "description": "Applies the official automated fixes for upgrading to v5.",
+    "tags": ["upgrade"],
+    "source": "https://expressjs.com/en/guide/migrating-5",
+    "verified": "2026-11"
+  },
+  {
+    "id": "express-ts-deps",
+    "framework": "express",
+    "title": "Add TypeScript types",
+    "command": "npm install -D typescript @types/express @types/node",
+    "description": "Installs TypeScript plus Express and Node type definitions.",
+    "tags": ["typescript"],
+    "source": "https://expressjs.com/en/starter/installing.html",
+    "verified": "2026-11"
+  },
+  {
+    "id": "express-run-ts",
+    "framework": "express",
+    "title": "Run a TypeScript file directly",
+    "command": "node {{file}}",
+    "description": "Node strips the types and runs the file (Node 22.18+).",
+    "vars": [
+      {
+        "key": "file",
+        "default": "src/app.ts",
+        "label": "Entry file"
+      }
+    ],
+    "tags": ["run", "typescript"],
+    "source": "https://expressjs.com/en/starter/installing.html",
+    "verified": "2026-11"
+  },
+  {
+    "id": "express-watch",
+    "framework": "express",
+    "title": "Restart on file changes",
+    "command": "node --watch {{file}}",
+    "description": "Runs the server and restarts it when files change.",
+    "vars": [
+      {
+        "key": "file",
+        "default": "src/app.js",
+        "label": "Entry file"
+      }
+    ],
+    "tags": ["run"],
+    "source": "https://nodejs.org/api/cli.html#--watch",
+    "verified": "2026-11"
+  },
+  {
+    "id": "express-cors-helmet",
+    "framework": "express",
+    "title": "Add common middleware",
+    "command": "npm install cors helmet",
+    "description": "Installs CORS and security-header middleware.",
+    "tags": ["middleware"],
+    "source": "https://expressjs.com/en/resources/middleware.html",
+    "verified": "2026-11"
+  }
+]

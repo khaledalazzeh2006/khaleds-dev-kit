@@ -1,0 +1,120 @@
+[
+  {
+    "id": "threejs-install",
+    "framework": "threejs",
+    "title": "Install three.js",
+    "command": "npm install three",
+    "description": "Adds three.js to a project.",
+    "tags": ["setup"],
+    "source": "https://threejs.org/docs/#manual/en/introduction/Installation",
+    "verified": "2026-11"
+  },
+  {
+    "id": "threejs-types",
+    "framework": "threejs",
+    "title": "Add three.js types",
+    "command": "npm install -D @types/three",
+    "description": "TypeScript definitions for three.js.",
+    "tags": ["typescript"],
+    "source": "https://r3f.docs.pmnd.rs/getting-started/installation",
+    "verified": "2026-11"
+  },
+  {
+    "id": "r3f-install",
+    "framework": "threejs",
+    "title": "Install React Three Fiber",
+    "command": "npm install three @react-three/fiber",
+    "description": "React renderer for three.js (fiber 9 pairs with React 19).",
+    "tags": ["setup", "r3f"],
+    "source": "https://r3f.docs.pmnd.rs/getting-started/installation",
+    "verified": "2026-11"
+  },
+  {
+    "id": "r3f-drei",
+    "framework": "threejs",
+    "title": "Add Drei helpers",
+    "command": "npm install @react-three/drei",
+    "description": "Ready-made helpers for R3F: controls, loaders, text, environments.",
+    "tags": ["r3f"],
+    "source": "https://drei.docs.pmnd.rs/",
+    "verified": "2026-11"
+  },
+  {
+    "id": "r3f-postprocessing",
+    "framework": "threejs",
+    "title": "Add post-processing",
+    "command": "npm install @react-three/postprocessing",
+    "description": "Bloom, depth of field and other effects for R3F.",
+    "tags": ["r3f", "effects"],
+    "source": "https://react-postprocessing.docs.pmnd.rs/",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltfjsx-component",
+    "framework": "threejs",
+    "title": "Turn a model into a JSX component",
+    "command": "npx gltfjsx {{model}}",
+    "description": "Generates a reusable R3F component from a GLTF/GLB file.",
+    "vars": [
+      {
+        "key": "model",
+        "default": "public/model.glb",
+        "label": "Model file"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--types",
+        "desc": "TypeScript definitions"
+      },
+      {
+        "flag": "--transform",
+        "desc": "Compress a web-ready copy (draco, resize, webp)"
+      },
+      {
+        "flag": "--output src/Model.tsx",
+        "desc": "Output file"
+      }
+    ],
+    "tags": ["models", "r3f"],
+    "source": "https://github.com/pmndrs/gltfjsx",
+    "verified": "2026-11"
+  },
+  {
+    "id": "gltfjsx-transform-ts",
+    "framework": "threejs",
+    "title": "Model → typed component + compressed copy",
+    "command": "npx gltfjsx {{model}} --transform --types",
+    "description": "Creates a typed component and a -transformed.glb copy (70–90% smaller).",
+    "vars": [
+      {
+        "key": "model",
+        "default": "public/model.glb",
+        "label": "Model file"
+      }
+    ],
+    "tags": ["models", "r3f"],
+    "source": "https://github.com/pmndrs/gltfjsx",
+    "verified": "2026-11"
+  },
+  {
+    "id": "threejs-gsap",
+    "framework": "threejs",
+    "title": "Add GSAP for scroll animation",
+    "command": "npm install gsap",
+    "description": "Installs GSAP (free incl. all plugins).",
+    "tags": ["animation"],
+    "source": "https://gsap.com/docs/v3/Installation",
+    "verified": "2026-11"
+  },
+  {
+    "id": "threejs-lenis",
+    "framework": "threejs",
+    "title": "Add Lenis smooth scroll",
+    "command": "npm install lenis",
+    "description": "Smooth scrolling that pairs well with ScrollTrigger.",
+    "tags": ["animation"],
+    "source": "https://github.com/darkroomengineering/lenis",
+    "verified": "2026-11"
+  }
+]

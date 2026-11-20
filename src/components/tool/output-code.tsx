@@ -42,9 +42,27 @@ export function OutputCode({ code, label, className }: OutputCodeProps) {
           {copied ? "Copied" : "Copy"}
         </Button>
       </div>
-      <pre className="overflow-x-auto p-3 font-mono text-[12.5px] leading-relaxed">
-        <code>{code}</code>
+      <pre className="overflow-x-auto p-3 font-mono text-[12.5px] leading-relaxed whitespace-pre-wrap">
+        <code>
+          <WrapAtSpaces text={code} />
+        </code>
       </pre>
     </div>
+  );
+}
+
+/**
+ * Long lines wrap only between words, never inside one (so "--use-pnpm" never splits at a hyphen).
+ * Copying still yields the exact original text.
+ */
+function WrapAtSpaces({ text }: { text: string }) {
+  return text.split(/( +)/).map((part, i) =>
+    part.trim() ? (
+      <span key={i} className="whitespace-pre">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
   );
 }

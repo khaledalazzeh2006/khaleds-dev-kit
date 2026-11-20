@@ -1,0 +1,96 @@
+[
+  {
+    "id": "vite-create-react-ts",
+    "framework": "vite-react",
+    "title": "Create a React + TS app",
+    "command": "npm create vite@latest {{name}} -- --template react-ts",
+    "description": "Scaffolds a React + TypeScript project with Vite.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "my-app",
+        "label": "Project name"
+      }
+    ],
+    "tags": ["setup", "scaffold"],
+    "source": "https://vite.dev/guide/",
+    "verified": "2026-11"
+  },
+  {
+    "id": "vite-create-react-compiler",
+    "framework": "vite-react",
+    "title": "Create a React app with the React Compiler",
+    "command": "npm create vite@latest {{name}} -- --template react-compiler-ts",
+    "description": "Scaffolds React + TypeScript with the React Compiler enabled.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "my-app",
+        "label": "Project name"
+      }
+    ],
+    "tags": ["setup", "scaffold"],
+    "source": "https://vite.dev/guide/",
+    "verified": "2026-11"
+  },
+  {
+    "id": "vite-create-interactive",
+    "framework": "vite-react",
+    "title": "Create a Vite app (prompts)",
+    "command": "npm create vite@latest",
+    "description": "Asks for name, framework and variant.",
+    "tags": ["setup", "scaffold"],
+    "source": "https://vite.dev/guide/",
+    "verified": "2026-11"
+  },
+  {
+    "id": "vite-dev",
+    "framework": "vite-react",
+    "title": "Start the dev server",
+    "command": "npm run dev",
+    "description": "Starts Vite with hot module replacement.",
+    "flags": [
+      {
+        "flag": "-- --host",
+        "desc": "Expose on your local network"
+      },
+      {
+        "flag": "-- --port 3000",
+        "desc": "Use another port"
+      }
+    ],
+    "tags": ["run"],
+    "source": "https://vite.dev/guide/",
+    "verified": "2026-11"
+  },
+  {
+    "id": "vite-build",
+    "framework": "vite-react",
+    "title": "Build for production",
+    "command": "npm run build",
+    "description": "Type-checks and bundles the app into dist/.",
+    "tags": ["build"],
+    "source": "https://vite.dev/guide/",
+    "verified": "2026-11"
+  },
+  {
+    "id": "vite-preview",
+    "framework": "vite-react",
+    "title": "Preview the production build",
+    "command": "npm run preview",
+    "description": "Serves dist/ locally to test the build.",
+    "tags": ["build"],
+    "source": "https://vite.dev/guide/",
+    "verified": "2026-11"
+  },
+  {
+    "id": "vite-add-tailwind",
+    "framework": "vite-react",
+    "title": "Add Tailwind CSS v4",
+    "command": "npm install tailwindcss @tailwindcss/vite",
+    "description": "Installs Tailwind v4 and its Vite plugin.",
+    "tags": ["styling"],
+    "source": "https://tailwindcss.com/docs/installation/using-vite",
+    "verified": "2026-11"
+  }
+]

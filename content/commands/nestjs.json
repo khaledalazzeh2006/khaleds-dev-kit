@@ -1,0 +1,423 @@
+[
+  {
+    "id": "nestjs-install-cli",
+    "framework": "nestjs",
+    "title": "Install the Nest CLI",
+    "command": "npm install -g @nestjs/cli",
+    "description": "Installs the nest command globally.",
+    "tags": ["setup", "global"],
+    "source": "https://docs.nestjs.com/cli/overview",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-new",
+    "framework": "nestjs",
+    "title": "Create a Nest project",
+    "command": "nest new {{name}}",
+    "description": "Creates and initializes a new Nest project.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "api",
+        "label": "Project name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "-p pnpm",
+        "desc": "Use pnpm"
+      },
+      {
+        "flag": "--skip-git",
+        "desc": "Don't init git"
+      },
+      {
+        "flag": "--skip-install",
+        "desc": "Don't install packages"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["setup", "scaffold"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-start-dev",
+    "framework": "nestjs",
+    "title": "Start in watch mode",
+    "command": "npm run start:dev",
+    "description": "Runs the app and reloads on changes (nest start --watch).",
+    "tags": ["run"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-start-debug",
+    "framework": "nestjs",
+    "title": "Start with the debugger",
+    "command": "nest start --debug --watch",
+    "description": "Runs with --inspect and live reload.",
+    "tags": ["run", "debug"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-build",
+    "framework": "nestjs",
+    "title": "Build the project",
+    "command": "nest build",
+    "description": "Compiles the app into dist/.",
+    "flags": [
+      {
+        "flag": "-b swc",
+        "desc": "Faster builds with SWC"
+      }
+    ],
+    "tags": ["build"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-resource",
+    "framework": "nestjs",
+    "title": "Generate a CRUD resource",
+    "command": "nest g resource {{name}}",
+    "description": "Generates module, controller, service, DTOs and entity in one go.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "users",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-module",
+    "framework": "nestjs",
+    "title": "Generate a module",
+    "command": "nest g module {{name}}",
+    "description": "Generates a module.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "users",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-controller",
+    "framework": "nestjs",
+    "title": "Generate a controller",
+    "command": "nest g controller {{name}}",
+    "description": "Generates a controller and imports it into the closest module.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "users",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-service",
+    "framework": "nestjs",
+    "title": "Generate a service",
+    "command": "nest g service {{name}}",
+    "description": "Generates a provider service.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "users",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-guard",
+    "framework": "nestjs",
+    "title": "Generate a guard",
+    "command": "nest g guard {{name}}",
+    "description": "Generates a guard, e.g. for auth.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "auth",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-interceptor",
+    "framework": "nestjs",
+    "title": "Generate an interceptor",
+    "command": "nest g interceptor {{name}}",
+    "description": "Generates an interceptor.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "logging",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-pipe",
+    "framework": "nestjs",
+    "title": "Generate a pipe",
+    "command": "nest g pipe {{name}}",
+    "description": "Generates a pipe for validation or transformation.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "parse-date",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-middleware",
+    "framework": "nestjs",
+    "title": "Generate a middleware",
+    "command": "nest g middleware {{name}}",
+    "description": "Generates a middleware class.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "logger",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-filter",
+    "framework": "nestjs",
+    "title": "Generate an exception filter",
+    "command": "nest g filter {{name}}",
+    "description": "Generates an exception filter.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "http-exception",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-g-gateway",
+    "framework": "nestjs",
+    "title": "Generate a WebSocket gateway",
+    "command": "nest g gateway {{name}}",
+    "description": "Generates a WebSocket gateway.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "events",
+        "label": "Name"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--no-spec",
+        "desc": "Skip the test file"
+      },
+      {
+        "flag": "--flat",
+        "desc": "Don't create a folder"
+      },
+      {
+        "flag": "--dry-run",
+        "desc": "Preview without writing files"
+      }
+    ],
+    "tags": ["generate"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-config",
+    "framework": "nestjs",
+    "title": "Add the config module",
+    "command": "npm install @nestjs/config",
+    "description": "Installs @nestjs/config for .env support.",
+    "tags": ["install"],
+    "source": "https://docs.nestjs.com/techniques/configuration",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-validation",
+    "framework": "nestjs",
+    "title": "Add validation",
+    "command": "npm install class-validator class-transformer",
+    "description": "Installs what ValidationPipe uses for DTO validation.",
+    "tags": ["install"],
+    "source": "https://docs.nestjs.com/techniques/validation",
+    "verified": "2026-11"
+  },
+  {
+    "id": "nestjs-info",
+    "framework": "nestjs",
+    "title": "Show Nest versions",
+    "command": "nest info",
+    "description": "Prints system info and installed Nest package versions.",
+    "tags": ["inspect"],
+    "source": "https://docs.nestjs.com/cli/usages",
+    "verified": "2026-11"
+  }
+]

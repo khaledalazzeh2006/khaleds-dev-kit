@@ -1,0 +1,237 @@
+[
+  {
+    "id": "pnpm-install",
+    "framework": "pnpm",
+    "title": "Install all dependencies",
+    "command": "pnpm install",
+    "description": "Installs everything listed in package.json.",
+    "flags": [
+      {
+        "flag": "--frozen-lockfile",
+        "desc": "Fail if the lockfile needs changes (CI)"
+      }
+    ],
+    "tags": ["install"],
+    "source": "https://pnpm.io/cli/install",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-add",
+    "framework": "pnpm",
+    "title": "Add a dependency",
+    "command": "pnpm add {{pkg}}",
+    "description": "Installs a package and saves it to dependencies.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "zustand",
+        "label": "Package"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "-E",
+        "desc": "Save the exact version"
+      }
+    ],
+    "tags": ["install"],
+    "source": "https://pnpm.io/cli/add",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-add-dev",
+    "framework": "pnpm",
+    "title": "Add a dev dependency",
+    "command": "pnpm add -D {{pkg}}",
+    "description": "Installs a package and saves it to devDependencies.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "vitest",
+        "label": "Package"
+      }
+    ],
+    "tags": ["install"],
+    "source": "https://pnpm.io/cli/add",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-add-global",
+    "framework": "pnpm",
+    "title": "Install a package globally",
+    "command": "pnpm add -g {{pkg}}",
+    "description": "Installs a CLI tool for the whole machine.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "@gltf-transform/cli",
+        "label": "Package"
+      }
+    ],
+    "tags": ["install", "global"],
+    "source": "https://pnpm.io/cli/add",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-remove",
+    "framework": "pnpm",
+    "title": "Remove a dependency",
+    "command": "pnpm remove {{pkg}}",
+    "description": "Removes a package and deletes it from package.json.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "lodash",
+        "label": "Package"
+      }
+    ],
+    "tags": ["remove"],
+    "source": "https://pnpm.io/cli/remove",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-run",
+    "framework": "pnpm",
+    "title": "Run a script",
+    "command": "pnpm {{script}}",
+    "description": "Runs a script from package.json (pnpm run is optional).",
+    "vars": [
+      {
+        "key": "script",
+        "default": "dev",
+        "label": "Script"
+      }
+    ],
+    "tags": ["scripts"],
+    "source": "https://pnpm.io/cli/run",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-dlx",
+    "framework": "pnpm",
+    "title": "Run a package without installing",
+    "command": "pnpm dlx {{pkg}}",
+    "description": "Fetches a package temporarily and runs its command.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "shadcn@latest add button",
+        "label": "Package and args"
+      }
+    ],
+    "tags": ["run"],
+    "source": "https://pnpm.io/cli/dlx",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-exec",
+    "framework": "pnpm",
+    "title": "Run a local binary",
+    "command": "pnpm exec {{bin}}",
+    "description": "Runs a binary from the project's own node_modules.",
+    "vars": [
+      {
+        "key": "bin",
+        "default": "prisma studio",
+        "label": "Command"
+      }
+    ],
+    "tags": ["run"],
+    "source": "https://pnpm.io/cli/exec",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-create",
+    "framework": "pnpm",
+    "title": "Scaffold from a create- package",
+    "command": "pnpm create {{starter}}",
+    "description": "Runs a create-* starter, e.g. vite or next-app.",
+    "vars": [
+      {
+        "key": "starter",
+        "default": "vite",
+        "label": "Starter"
+      }
+    ],
+    "tags": ["setup"],
+    "source": "https://pnpm.io/cli/create",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-outdated",
+    "framework": "pnpm",
+    "title": "List outdated packages",
+    "command": "pnpm outdated",
+    "description": "Shows installed packages that have newer versions.",
+    "tags": ["update"],
+    "source": "https://pnpm.io/cli/outdated",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-update",
+    "framework": "pnpm",
+    "title": "Update packages",
+    "command": "pnpm update",
+    "description": "Updates packages within the ranges allowed by package.json.",
+    "flags": [
+      {
+        "flag": "--latest",
+        "desc": "Ignore ranges, go to latest"
+      },
+      {
+        "flag": "-i",
+        "desc": "Choose updates interactively"
+      }
+    ],
+    "tags": ["update"],
+    "source": "https://pnpm.io/cli/update",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-why",
+    "framework": "pnpm",
+    "title": "Why is a package installed",
+    "command": "pnpm why {{pkg}}",
+    "description": "Shows which dependencies pulled a package in.",
+    "vars": [
+      {
+        "key": "pkg",
+        "default": "react",
+        "label": "Package"
+      }
+    ],
+    "tags": ["inspect"],
+    "source": "https://pnpm.io/cli/why",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-list",
+    "framework": "pnpm",
+    "title": "List direct dependencies",
+    "command": "pnpm list --depth 0",
+    "description": "Shows the top-level installed packages and versions.",
+    "tags": ["inspect"],
+    "source": "https://pnpm.io/cli/list",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-import",
+    "framework": "pnpm",
+    "title": "Convert an npm lockfile",
+    "command": "pnpm import",
+    "description": "Creates pnpm-lock.yaml from package-lock.json or yarn.lock.",
+    "tags": ["migrate"],
+    "source": "https://pnpm.io/cli/import",
+    "verified": "2026-11"
+  },
+  {
+    "id": "pnpm-store-prune",
+    "framework": "pnpm",
+    "title": "Clean the global store",
+    "command": "pnpm store prune",
+    "description": "Removes unreferenced packages from pnpm's global store.",
+    "tags": ["cache"],
+    "source": "https://pnpm.io/cli/store",
+    "verified": "2026-11"
+  }
+]

@@ -25,9 +25,13 @@ Content is data, not code: JSON files in `content/`, validated against `content/
 8. **Dangerous commands** (delete data, force push, reset DB) get `"danger": true`; the UI shows a warning.
 9. After editing, run `pnpm validate:content`. It must pass with zero errors.
 
-## Current frameworks (first batch)
-npm/pnpm, git, react-vite, nextjs, express, nestjs, prisma, threejs (incl. React Three Fiber),
-gltf-transform. Next batches are decided in PROGRESS.md.
+## Frameworks
+Ids (file name = framework id): npm, pnpm, git, vite-react, nextjs, express, nestjs, prisma,
+threejs (incl. R3F, drei, gltfjsx), gltf-transform. A new framework needs an entry in
+`src/modules/commands/lib/frameworks.ts` (label + order) — the content test fails otherwise.
+Order inside a file = order in the app list, so put the most-used commands first.
+Flags in `flags` are appended to the end of the command when toggled, so only list flags that
+work at the end.
 
 ## Official sources
 - Next.js: nextjs.org/docs · React/Vite: react.dev, vite.dev · Express: expressjs.com

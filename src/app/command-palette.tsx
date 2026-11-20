@@ -8,6 +8,7 @@ import { copyText } from "@/lib/clipboard";
 import { useUi } from "@/lib/store/ui";
 import type { SearchEntry } from "@/lib/search/search-index";
 import { getModule, modules } from "./registry";
+import { resolveCopyValue } from "./module";
 import { getSearch } from "./search";
 
 const MAX_PER_GROUP = 8;
@@ -47,7 +48,8 @@ export function CommandPalette() {
 
   const select = (e: SearchEntry) => {
     pushRecent(e.key);
-    if (e.copyValue) void copyText(e.copyValue);
+    const value = resolveCopyValue(e);
+    if (value) void copyText(value);
     navigate({ to: "/$moduleId/$itemId", params: { moduleId: e.moduleId, itemId: e.itemId } });
     setNarrowView("detail");
     close();

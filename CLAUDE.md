@@ -43,6 +43,9 @@ docs/               analysis, architecture, roadmap, decisions (ADRs)
 - Content (commands/snippets) comes only from official docs and must pass schema validation.
 - Never add a dependency without saying why and checking its license is free for this use.
 - Don't start the next phase until the current one passes `phase-review`.
+- `useEffect` bodies always use braces — never `useEffect(() => fn())`. Some DOM APIs now return
+  Promises (e.g. `scrollIntoView` in WebView2) and React crashes with "destroy is not a function".
+- Test in `pnpm tauri dev` (StrictMode runs effect cleanups immediately), not only in a build.
 
 ## Skills (in .claude/skills/)
 - `ui-guidelines` — before building or changing any screen or component.

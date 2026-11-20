@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { Fragment, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
 import { Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
@@ -10,7 +10,7 @@ import { isTypingTarget, matchesHotkey } from "@/lib/hotkeys";
 import { copyText } from "@/lib/clipboard";
 import { useUi } from "@/lib/store/ui";
 import { cn } from "@/lib/utils";
-import type { DevKitModule, ModuleItem } from "../module";
+import { resolveCopyValue, type DevKitModule, type ModuleItem } from "../module";
 
 interface ListPaneProps {
   module: DevKitModule;
@@ -24,15 +24,29 @@ export function ListPane({ module, activeItemId, className }: ListPaneProps) {
   const { setNarrowView, setPaletteOpen, pushRecent } = useUi.getState();
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const activeRef = useRef<HTMLButtonElement>(null);
+
+  // Keep the selected row visible when moving with ↑↓ in a long list.
+  // Braces matter: newer Chromium returns a Promise from scrollIntoView, and an effect must
+  // return nothing or a cleanup function (otherwise React throws "destroy is not a function").
+  useEffect(() => {
+    activeRef.current?.scrollIntoView({ block: "nearest" });
+  }, [activeItemId]);
 
   const results = useMemo(() => {
     const items = module.items();
     if (!query.trim()) return items.map((item) => ({ item, indices: [] as number[] }));
     return items
-      .map((item) => ({ item, match: fuzzyMatch(query, item.title) }))
-      .filter((r) => r.match)
-      .sort((a, b) => b.match!.score - a.match!.score)
-      .map((r) => ({ item: r.item, indices: r.match!.indices }));
+      .map((item) => {
+        const title = fuzzyMatch(query, item.title);
+        if (title) return { item, score: title.score, indices: title.indices };
+        // Fall back to group + keywords (e.g. "prisma" or a word from the command), ranked lower.
+        const extra = fuzzyMatch(query, [item.group, ...(item.keywords ?? [])].join(" "));
+        return extra ? { item, score: extra.score - 10, indices: [] as number[] } : null;
+      })
+      .filter((r) => r !== null)
+      .sort((a, b) => b.score - a.score)
+      .map(({ item, indices }) => ({ item, indices }));
   }, [module, query]);
 
   // "/" focuses the filter from anywhere (unless already typing).
@@ -53,9 +67,10 @@ export function ListPane({ module, activeItemId, className }: ListPaneProps) {
   };
 
   const activate = (item: ModuleItem) => {
-    if (item.copyValue) void copyText(item.copyValue);
+    const value = resolveCopyValue(item);
+    if (value) void copyText(value);
     open(item);
-    if (!item.copyValue) setNarrowView("detail");
+    if (!value) setNarrowView("detail");
   };
 
   const onKeyDown = (e: React.KeyboardEvent) => {
@@ -112,34 +127,52 @@ export function ListPane({ module, activeItemId, className }: ListPaneProps) {
         </div>
       ) : (
         <ul role="listbox" aria-label={module.title} className="flex-1 overflow-y-auto p-1.5">
-          {results.map(({ item, indices }) => {
+          {results.map(({ item, indices }, i) => {
             const active = item.id === activeItemId;
+            const showGroup =
+              !query.trim() && item.group && item.group !== results[i - 1]?.item.group;
             return (
-              <li key={item.id} role="option" aria-selected={active}>
-                <button
-                  onClick={() => activate(item)}
-                  className={cn(
-                    "flex w-full flex-col gap-0.5 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-accent",
-                    active && "bg-accent",
-                  )}
-                >
-                  <span className="flex items-center justify-between gap-2">
-                    <span className="truncate text-sm font-medium">
-                      <Highlight text={item.title} indices={indices} />
+              <Fragment key={item.id}>
+                {showGroup && (
+                  <li
+                    role="presentation"
+                    className="px-2.5 pt-3 pb-1 text-[11px] font-medium tracking-wide text-muted-foreground uppercase"
+                  >
+                    {item.group}
+                  </li>
+                )}
+                <li role="option" aria-selected={active}>
+                  <button
+                    ref={active ? activeRef : undefined}
+                    onClick={() => activate(item)}
+                    className={cn(
+                      "flex w-full flex-col gap-0.5 rounded-md px-2.5 py-2 text-left transition-colors hover:bg-accent",
+                      active && "bg-accent",
+                    )}
+                  >
+                    <span className="flex items-center justify-between gap-2">
+                      <span className="truncate text-sm font-medium">
+                        <Highlight text={item.title} indices={indices} />
+                      </span>
+                      {item.tags?.[0] && (
+                        <span
+                          className={cn(
+                            "shrink-0 rounded-full bg-muted px-1.5 text-[11px] text-muted-foreground",
+                            item.tags[0] === "danger" && "bg-destructive/15 text-destructive",
+                          )}
+                        >
+                          {item.tags[0]}
+                        </span>
+                      )}
                     </span>
-                    {item.tags?.[0] && (
-                      <span className="shrink-0 rounded-full bg-muted px-1.5 text-[11px] text-muted-foreground">
-                        {item.tags[0]}
+                    {item.description && (
+                      <span className="truncate text-xs text-muted-foreground">
+                        {item.description}
                       </span>
                     )}
-                  </span>
-                  {item.description && (
-                    <span className="truncate text-xs text-muted-foreground">
-                      {item.description}
-                    </span>
-                  )}
-                </button>
-              </li>
+                  </button>
+                </li>
+              </Fragment>
             );
           })}
         </ul>

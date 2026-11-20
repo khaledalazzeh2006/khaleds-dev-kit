@@ -8,7 +8,7 @@ export interface SearchEntry {
   title: string;
   description?: string;
   keywords?: string[];
-  copyValue?: string;
+  copyValue?: string | (() => string);
 }
 
 /** Full-text index over every module item. Forward tokenizing gives search-as-you-type. */

@@ -9,8 +9,18 @@ export interface ModuleItem {
   tags?: string[];
   /** Extra search words that don't appear in the title. */
   keywords?: string[];
-  /** If set, Enter copies this value (commands, snippets). Otherwise Enter opens the item. */
-  copyValue?: string;
+  /** List section header. Items with a group must already be sorted by group. */
+  group?: string;
+  /**
+   * If set, Enter copies this value (commands, snippets). Otherwise Enter opens the item.
+   * Use a function when the value depends on user input (e.g. filled-in variables).
+   */
+  copyValue?: string | (() => string);
+}
+
+/** The text to copy for an item, or undefined if Enter should just open it. */
+export function resolveCopyValue(item: Pick<ModuleItem, "copyValue">): string | undefined {
+  return typeof item.copyValue === "function" ? item.copyValue() : item.copyValue;
 }
 
 export interface DetailProps {

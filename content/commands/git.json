@@ -1,0 +1,397 @@
+[
+  {
+    "id": "git-init",
+    "framework": "git",
+    "title": "Start a repository",
+    "command": "git init",
+    "description": "Creates an empty Git repository in the current folder.",
+    "tags": ["setup"],
+    "source": "https://git-scm.com/docs/git-init",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-clone",
+    "framework": "git",
+    "title": "Clone a repository",
+    "command": "git clone {{url}}",
+    "description": "Downloads a repository and its history.",
+    "vars": [
+      {
+        "key": "url",
+        "default": "https://github.com/user/repo.git",
+        "label": "Repository URL"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "--depth 1",
+        "desc": "Only the latest commit (faster)"
+      }
+    ],
+    "tags": ["setup"],
+    "source": "https://git-scm.com/docs/git-clone",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-status",
+    "framework": "git",
+    "title": "See what changed",
+    "command": "git status",
+    "description": "Shows staged, unstaged and untracked files.",
+    "flags": [
+      {
+        "flag": "-s",
+        "desc": "Short format"
+      }
+    ],
+    "tags": ["inspect"],
+    "source": "https://git-scm.com/docs/git-status",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-add-all",
+    "framework": "git",
+    "title": "Stage all changes",
+    "command": "git add .",
+    "description": "Stages every change in the current folder.",
+    "tags": ["commit"],
+    "source": "https://git-scm.com/docs/git-add",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-commit",
+    "framework": "git",
+    "title": "Commit staged changes",
+    "command": "git commit -m \"{{message}}\"",
+    "description": "Records staged changes with a message.",
+    "vars": [
+      {
+        "key": "message",
+        "default": "feat: add login page",
+        "label": "Message"
+      }
+    ],
+    "tags": ["commit"],
+    "source": "https://git-scm.com/docs/git-commit",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-commit-amend",
+    "framework": "git",
+    "title": "Amend the last commit",
+    "command": "git commit --amend",
+    "description": "Rewrites the last commit (message or staged changes). Avoid on pushed commits.",
+    "tags": ["commit"],
+    "source": "https://git-scm.com/docs/git-commit",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-log",
+    "framework": "git",
+    "title": "Compact history",
+    "command": "git log --oneline --graph -n {{count}}",
+    "description": "Shows recent commits as a short graph.",
+    "vars": [
+      {
+        "key": "count",
+        "default": "20",
+        "label": "How many"
+      }
+    ],
+    "tags": ["inspect"],
+    "source": "https://git-scm.com/docs/git-log",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-diff",
+    "framework": "git",
+    "title": "Show unstaged changes",
+    "command": "git diff",
+    "description": "Shows line-by-line changes not yet staged.",
+    "flags": [
+      {
+        "flag": "--staged",
+        "desc": "Show staged changes instead"
+      }
+    ],
+    "tags": ["inspect"],
+    "source": "https://git-scm.com/docs/git-diff",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-branch-new",
+    "framework": "git",
+    "title": "Create and switch to a branch",
+    "command": "git switch -c {{branch}}",
+    "description": "Creates a new branch from the current one and switches to it.",
+    "vars": [
+      {
+        "key": "branch",
+        "default": "feature/search",
+        "label": "Branch"
+      }
+    ],
+    "tags": ["branch"],
+    "source": "https://git-scm.com/docs/git-switch",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-switch",
+    "framework": "git",
+    "title": "Switch branch",
+    "command": "git switch {{branch}}",
+    "description": "Moves to an existing branch.",
+    "vars": [
+      {
+        "key": "branch",
+        "default": "main",
+        "label": "Branch"
+      }
+    ],
+    "tags": ["branch"],
+    "source": "https://git-scm.com/docs/git-switch",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-branch-list",
+    "framework": "git",
+    "title": "List branches",
+    "command": "git branch -a",
+    "description": "Lists local and remote branches.",
+    "tags": ["branch"],
+    "source": "https://git-scm.com/docs/git-branch",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-branch-delete",
+    "framework": "git",
+    "title": "Delete a merged branch",
+    "command": "git branch -d {{branch}}",
+    "description": "Deletes a local branch that is already merged.",
+    "vars": [
+      {
+        "key": "branch",
+        "default": "feature/search",
+        "label": "Branch"
+      }
+    ],
+    "tags": ["branch"],
+    "source": "https://git-scm.com/docs/git-branch",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-merge",
+    "framework": "git",
+    "title": "Merge a branch",
+    "command": "git merge {{branch}}",
+    "description": "Merges another branch into the current one.",
+    "vars": [
+      {
+        "key": "branch",
+        "default": "feature/search",
+        "label": "Branch"
+      }
+    ],
+    "tags": ["branch"],
+    "source": "https://git-scm.com/docs/git-merge",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-remote-add",
+    "framework": "git",
+    "title": "Connect a remote",
+    "command": "git remote add origin {{url}}",
+    "description": "Links the repository to a remote such as GitHub.",
+    "vars": [
+      {
+        "key": "url",
+        "default": "https://github.com/user/repo.git",
+        "label": "Remote URL"
+      }
+    ],
+    "tags": ["remote"],
+    "source": "https://git-scm.com/docs/git-remote",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-push-upstream",
+    "framework": "git",
+    "title": "Push a new branch",
+    "command": "git push -u origin {{branch}}",
+    "description": "Pushes a branch and sets it to track the remote.",
+    "vars": [
+      {
+        "key": "branch",
+        "default": "main",
+        "label": "Branch"
+      }
+    ],
+    "tags": ["remote"],
+    "source": "https://git-scm.com/docs/git-push",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-pull",
+    "framework": "git",
+    "title": "Pull latest changes",
+    "command": "git pull",
+    "description": "Fetches and merges changes from the tracked remote branch.",
+    "flags": [
+      {
+        "flag": "--rebase",
+        "desc": "Rebase local commits on top instead of merging"
+      }
+    ],
+    "tags": ["remote"],
+    "source": "https://git-scm.com/docs/git-pull",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-stash",
+    "framework": "git",
+    "title": "Stash work in progress",
+    "command": "git stash push -m \"{{message}}\"",
+    "description": "Saves uncommitted changes and cleans the working tree.",
+    "vars": [
+      {
+        "key": "message",
+        "default": "wip",
+        "label": "Message"
+      }
+    ],
+    "flags": [
+      {
+        "flag": "-u",
+        "desc": "Include untracked files"
+      }
+    ],
+    "tags": ["stash"],
+    "source": "https://git-scm.com/docs/git-stash",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-stash-pop",
+    "framework": "git",
+    "title": "Restore stashed work",
+    "command": "git stash pop",
+    "description": "Re-applies the latest stash and removes it from the list.",
+    "tags": ["stash"],
+    "source": "https://git-scm.com/docs/git-stash",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-restore",
+    "framework": "git",
+    "title": "Discard changes in a file",
+    "command": "git restore {{file}}",
+    "description": "Throws away unstaged changes in a file.",
+    "vars": [
+      {
+        "key": "file",
+        "default": "src/App.tsx",
+        "label": "File"
+      }
+    ],
+    "tags": ["undo"],
+    "danger": true,
+    "source": "https://git-scm.com/docs/git-restore",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-unstage",
+    "framework": "git",
+    "title": "Unstage a file",
+    "command": "git restore --staged {{file}}",
+    "description": "Removes a file from the staging area, keeping the changes.",
+    "vars": [
+      {
+        "key": "file",
+        "default": "src/App.tsx",
+        "label": "File"
+      }
+    ],
+    "tags": ["undo"],
+    "source": "https://git-scm.com/docs/git-restore",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-reset-soft",
+    "framework": "git",
+    "title": "Undo last commit, keep changes",
+    "command": "git reset --soft HEAD~1",
+    "description": "Removes the last commit but keeps its changes staged.",
+    "tags": ["undo"],
+    "source": "https://git-scm.com/docs/git-reset",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-reset-hard",
+    "framework": "git",
+    "title": "Discard all local changes",
+    "command": "git reset --hard HEAD",
+    "description": "Deletes all uncommitted changes. Cannot be undone.",
+    "tags": ["undo"],
+    "danger": true,
+    "source": "https://git-scm.com/docs/git-reset",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-revert",
+    "framework": "git",
+    "title": "Revert a commit safely",
+    "command": "git revert {{commit}}",
+    "description": "Creates a new commit that undoes an earlier one; safe on shared branches.",
+    "vars": [
+      {
+        "key": "commit",
+        "default": "HEAD",
+        "label": "Commit"
+      }
+    ],
+    "tags": ["undo"],
+    "source": "https://git-scm.com/docs/git-revert",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-tag",
+    "framework": "git",
+    "title": "Tag a release",
+    "command": "git tag -a v{{version}} -m \"v{{version}}\"",
+    "description": "Creates an annotated tag for a release.",
+    "vars": [
+      {
+        "key": "version",
+        "default": "1.0.0",
+        "label": "Version"
+      }
+    ],
+    "tags": ["release"],
+    "source": "https://git-scm.com/docs/git-tag",
+    "verified": "2026-11"
+  },
+  {
+    "id": "git-config-user",
+    "framework": "git",
+    "title": "Set your name and email",
+    "command": "git config --global user.name \"{{name}}\" && git config --global user.email \"{{email}}\"",
+    "description": "Sets the identity used in your commits.",
+    "vars": [
+      {
+        "key": "name",
+        "default": "Khaled",
+        "label": "Name"
+      },
+      {
+        "key": "email",
+        "default": "you@example.com",
+        "label": "Email"
+      }
+    ],
+    "platforms": {
+      "windows": "git config --global user.name \"{{name}}\"; git config --global user.email \"{{email}}\""
+    },
+    "tags": ["setup"],
+    "source": "https://git-scm.com/docs/git-config",
+    "verified": "2026-11"
+  }
+]

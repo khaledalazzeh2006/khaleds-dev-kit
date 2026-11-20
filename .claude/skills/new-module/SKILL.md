@@ -15,8 +15,9 @@ interface ModuleItem {
   title: string;
   description?: string;
   tags?: string[];       // first tag shows as a badge in the list
-  keywords?: string[];   // extra search words
-  copyValue?: string;    // if set, Enter copies it (commands, snippets); else Enter opens
+  keywords?: string[];   // extra search words (also used by the list filter)
+  group?: string;        // list section header; items must be pre-sorted by group
+  copyValue?: string | (() => string); // Enter copies it; use a function if it depends on user input
 }
 
 interface DevKitModule {
@@ -30,7 +31,8 @@ interface DevKitModule {
 }
 ```
 The shell does the rest: sidebar entry, routes (`/<id>/<itemId>`), list pane with fuzzy filter,
-Mod K search entries (built from `items()`), recent history. Reference: `src/modules/converters/`.
+Mod K search entries (built from `items()`), recent history. References: `src/modules/converters/`
+(tools) and `src/modules/commands/` (content-driven, grouped list, copy-on-Enter).
 
 ## Steps
 1. Create `src/modules/<id>/`:
