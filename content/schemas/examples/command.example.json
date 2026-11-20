@@ -1,0 +1,17 @@
+[
+  {
+    "id": "nextjs-create-app",
+    "framework": "nextjs",
+    "title": "Create a new Next.js app",
+    "command": "pnpm create next-app@latest {{name}}",
+    "description": "Scaffolds a new Next.js project with interactive setup prompts.",
+    "vars": [{ "key": "name", "default": "my-app", "label": "Project name" }],
+    "flags": [
+      { "flag": "--ts", "desc": "Use TypeScript" },
+      { "flag": "--tailwind", "desc": "Add Tailwind CSS" }
+    ],
+    "tags": ["setup", "scaffold"],
+    "source": "https://nextjs.org/docs/app/api-reference/cli/create-next-app",
+    "verified": "2026-11"
+  }
+]

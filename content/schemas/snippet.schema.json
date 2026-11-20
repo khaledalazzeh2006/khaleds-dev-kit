@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "snippet.schema.json",
+  "title": "Snippet",
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "title",
+    "description",
+    "language",
+    "code",
+    "tags",
+    "source",
+    "verified"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "id": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$" },
+    "category": { "type": "string" },
+    "title": { "type": "string", "maxLength": 80 },
+    "description": { "type": "string", "maxLength": 160 },
+    "language": { "enum": ["js", "ts", "jsx", "tsx", "css", "html", "sql", "json", "bash"] },
+    "code": { "type": "string" },
+    "dependencies": { "type": "array", "items": { "type": "string" } },
+    "params": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["key", "type", "default"],
+        "additionalProperties": false,
+        "properties": {
+          "key": { "type": "string" },
+          "label": { "type": "string" },
+          "type": { "enum": ["number", "string", "boolean", "select", "color", "ease"] },
+          "default": {},
+          "min": { "type": "number" },
+          "max": { "type": "number" },
+          "step": { "type": "number" },
+          "unit": { "type": "string" },
+          "options": { "type": "array", "items": { "type": "string" } }
+        }
+      }
+    },
+    "preview": { "type": "string", "description": "id of a live preview component, if any" },
+    "tags": { "type": "array", "items": { "type": "string" } },
+    "source": { "type": "string", "format": "uri" },
+    "verified": { "type": "string", "pattern": "^\\d{4}-\\d{2}$" }
+  }
+}

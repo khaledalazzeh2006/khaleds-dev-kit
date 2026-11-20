@@ -1,0 +1,35 @@
+{
+  "id": "gsap-pin-section",
+  "category": "gsap",
+  "title": "Pin a section while scrolling",
+  "description": "Keeps a section fixed while its content animates as the user scrolls.",
+  "language": "js",
+  "code": "gsap.registerPlugin(ScrollTrigger);\n\ngsap.to('.panel', {\n  x: {{distance}},\n  scrollTrigger: {\n    trigger: '.section',\n    pin: true,\n    start: 'top top',\n    end: '+={{distance}}',\n    scrub: {{scrub}}\n  }\n});",
+  "dependencies": ["gsap"],
+  "params": [
+    {
+      "key": "distance",
+      "label": "Scroll distance",
+      "type": "number",
+      "default": 1000,
+      "min": 200,
+      "max": 4000,
+      "step": 100,
+      "unit": "px"
+    },
+    {
+      "key": "scrub",
+      "label": "Scrub smoothing",
+      "type": "number",
+      "default": 1,
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "unit": "s"
+    }
+  ],
+  "preview": "pin-section",
+  "tags": ["scrolltrigger", "pin"],
+  "source": "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+  "verified": "2026-11"
+}

@@ -1,0 +1,22 @@
+# deps & builds
+node_modules/
+dist/
+src-tauri/target/
+src-tauri/gen/
+*.tsbuildinfo
+coverage/
+
+# env & local
+.env
+.env.*
+!.env.example
+.claude/settings.local.json
+*.log
+.DS_Store
+Thumbs.db
+
+# editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.local
