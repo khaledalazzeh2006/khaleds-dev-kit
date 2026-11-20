@@ -42,3 +42,12 @@ export function connectionUrl(o: ConnectionOptions): string {
 export function adoNetString(o: ConnectionOptions): string {
   return `Server=${o.host},${o.port};Database=${o.database};User Id=${o.user};Password=${o.password};Encrypt=${o.ssl ? "True" : "False"};TrustServerCertificate=${o.ssl ? "False" : "True"};`;
 }
+
+/** URL for the app's own database driver (Connect & query). Differs from Prisma's only in SSL / SQLite. */
+export function driverUrl(o: ConnectionOptions): string {
+  const auth = o.user ? `${enc(o.user)}${o.password ? `:${enc(o.password)}` : ""}@` : "";
+  if (o.engine === "sqlite") return `sqlite:${o.file || "./dev.db"}`;
+  if (o.engine === "mysql")
+    return `mysql://${auth}${o.host}:${o.port}/${enc(o.database)}${o.ssl ? "?ssl-mode=REQUIRED" : ""}`;
+  return connectionUrl(o);
+}

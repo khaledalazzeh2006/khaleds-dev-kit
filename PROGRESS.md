@@ -1,6 +1,6 @@
 # Progress
 
-**Current phase:** 8 — My Library (waiting for Khaled to test)
+**Current phase:** 9 — Integrations (waiting for Khaled to test)
 **Last updated:** 2026-11-20
 
 ## Done
@@ -89,7 +89,7 @@
 - [x] New skill: .claude/skills/templates/SKILL.md
 - [x] Checked by Khaled on Windows, committed
 
-## Phase 8 — My Library (built, waiting for Khaled's check)
+## Phase 8 — My Library (done)
 - [x] Module `library` (order 70): Import & export page, Favorites, My snippets; items change live (new `watch` on DevKitModule + `useModuleItems`; search index rebuilds on change)
 - [x] Favorites: ☆ on every list row (outside My Library) or Mod D; a favorite opens its own tool inside My Library with "Open in …" / Unstar
 - [x] "Save" next to Copy on every OutputCode → snippet named after the open tool (no duplicates; toast with Open)
@@ -98,7 +98,18 @@
 - [x] Backup: export/import JSON (merge, never overwrite); stored in localStorage (`devkit-library`)
 - [x] `src/lib/module-lookup.ts` lets a module find others without importing the registry (no import cycle)
 - [x] 148 tests; screenshots checked (star, Mod D, Save toast, favorites view, editor, Mod K finds snippets)
-- [ ] Checked by Khaled on Windows
+- [x] Checked by Khaled on Windows, committed
+
+## Phase 9 — Integrations (built, waiting for Khaled's check)
+- [x] Rust side (src-tauri/src): `db.rs` (sqlx 0.9: PostgreSQL, MySQL/MariaDB, SQLite; every value returned as text; read-only enforced by the database; 15 s connect / 2 min query timeouts; one connection per call, nothing stored), `runner.rs` (run a command in a folder with streamed output + Stop that kills the whole tree; open a real terminal: Windows Terminal → cmd fallback, macOS Terminal), `vscode.rs` (install snippets into VS Code's user folder, write a generated project into a new/empty folder with path checks, open a folder in VS Code)
+- [x] Frontend bridge: `src/lib/native.ts` (typed invoke wrappers, isDesktop, pickFolder); browser shows "desktop app only" hints
+- [x] Database → **Connect & query**: fields or pasted URL (Prisma URLs cleaned), tables sidebar, SQL editor (Mod Enter), Read-only on by default, max rows, results grid (NULL shown), copy CSV/JSON, **Import into designer** (introspection → Schema, Undo)
+- [x] Password + pasted URL live in memory only (`lib/session.ts`), shared with "Connection string"
+- [x] Commands: Run here / Terminal / VS Code under every command, remembered project folder (+ recent); danger commands need a second click
+- [x] My Library: **Install into VS Code**; Templates: **Create folder** → "Open in VS Code"
+- [x] Verified in Claude's Linux sandbox: `cargo clippy` clean; Rust tests incl. real PostgreSQL 16 + MariaDB (`DEVKIT_PG_URL=… DEVKIT_MYSQL_URL=… cargo test -- --ignored`); introspection SQL run on all 3 engines with our Shop/Auth/Blog DDL → fixtures in `src/modules/database/fixtures/` (read-back equals the original schema); 154 frontend tests; UI checked with a mocked Tauri bridge
+- [ ] Windows-only code paths (cmd/taskkill/wt/code) reviewed but only compiled on Windows → check on Khaled's PC
+- [ ] Checked by Khaled on Windows (first `pnpm tauri dev` compiles sqlx + SQLite: a few minutes)
 
 ## Open questions / later
 - Khaled's Node.js is managed by **fnm** (default v26). Fixed for every shell by adding `%APPDATA%\fnm\aliases\default` to the user PATH (pnpm is installed globally there). If node/pnpm go missing after changing Node versions, check that folder first.
@@ -107,7 +118,8 @@
 - Package-manager switch (npm ↔ pnpm ↔ yarn) on install commands — later; for now npm and pnpm have their own lists.
 - Prisma 8 is in RC; commands target Prisma 7 (stable). Re-check when 8 is GA.
 - shadcn registry is blocked in Claude's sandbox: button/tooltip/dialog/input were written by hand in shadcn style. On Windows, `pnpm dlx shadcn@latest add <x>` works normally.
-- Library lives in localStorage; Phase 9/10: write the VS Code snippets file directly (fs scope) and consider a file-based store with automatic backups.
+- Library lives in localStorage; consider a file-based store with automatic backups (Phase 10). VS Code install is done (Phase 9).
+- SQL Server / MongoDB live connections: not in Phase 9 (sqlx has no SQL Server driver); add with tiberius / mongodb crates if needed.
 - Clipboard uses navigator.clipboard; switch to the Tauri clipboard plugin if WebView2/macOS ever refuses.
 - CSP is `null` in tauri.conf.json for now → set a strict CSP in Phase 10.
 - productName is `Khaleds Dev Kit` (no apostrophe, safer for installers); window title keeps "Khaled's".
@@ -127,6 +139,6 @@
 | 6 Responsive Tools | done | 2026-11-20 |
 | 7 Database | done | 2026-11-20 |
 | 7.5 Templates | done | 2026-11-20 |
-| 8 My Library + VS Code snippet export | built | 2026-11-20, waiting for Windows check |
-| 9 Integrations (DB connect, run commands, VS Code extension) | — | |
+| 8 My Library + VS Code snippet export | done | 2026-11-20 |
+| 9 Integrations (DB connect, run commands, VS Code) | built | 2026-11-20, waiting for Windows check |
 | 10 Polish (installer, auto-update, perf) | — | |

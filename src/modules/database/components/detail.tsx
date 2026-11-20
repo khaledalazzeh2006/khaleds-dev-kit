@@ -3,6 +3,7 @@ import type { DetailProps } from "@/app/module";
 
 const tools: Record<string, LazyExoticComponent<ComponentType>> = {
   designer: lazy(() => import("./schema-designer")),
+  query: lazy(() => import("./query-tool")),
   seed: lazy(() => import("./seed-tool")),
   connection: lazy(() => import("./connection-tool")),
 };

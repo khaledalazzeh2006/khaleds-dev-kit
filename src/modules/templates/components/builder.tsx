@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { ArrowDown, ArrowUp, Download, Plus, RotateCcw, X } from "lucide-react";
+import { ArrowDown, ArrowUp, Download, FolderPlus, Plus, RotateCcw, X } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,6 +12,7 @@ import type { CodeLanguage } from "@/components/tool/code-input";
 import { usePersistentState } from "@/lib/hooks/use-persistent-state";
 import { useAsyncResult } from "@/lib/hooks/use-async-result";
 import { saveBlob } from "@/lib/save-file";
+import { isDesktop, joinPath, openInVsCode, pickFolder, writeProject } from "@/lib/native";
 import { htmlProject, nextProject, pageHtml, slug, viteProject, type Target } from "../lib/export";
 import type { Preset } from "../lib/model";
 import { CATEGORY_ORDER, sectionById, sections } from "../lib/sections";
@@ -104,6 +105,27 @@ export default function Builder({ preset }: { preset: Preset }) {
     if (ok) toast.success(`Saved ${name}.zip`);
   };
 
+  const createFolder = async () => {
+    try {
+      const parent = await pickFolder("Where should the project folder go?");
+      if (!parent) return;
+      const dir = await writeProject(joinPath(parent, slug(title)), files);
+      toast.success(`Created ${slug(title)}`, {
+        description: dir,
+        action: {
+          label: "Open in VS Code",
+          onClick: () =>
+            void openInVsCode(dir).catch((e: unknown) =>
+              toast.error(e instanceof Error ? e.message : String(e)),
+            ),
+        },
+        duration: 10000,
+      });
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : String(e));
+    }
+  };
+
   const available = sections.filter((s) => !valid.includes(s.id));
 
   return (
@@ -129,6 +151,17 @@ export default function Builder({ preset }: { preset: Preset }) {
               { value: "html", label: "HTML" },
             ]}
           />
+          {isDesktop() && (
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => void createFolder()}
+              disabled={!valid.length || (target === "html" && !css)}
+              title="Write the project into a new folder on your computer"
+            >
+              <FolderPlus /> Create folder
+            </Button>
+          )}
           <Button
             size="sm"
             onClick={() => void download()}

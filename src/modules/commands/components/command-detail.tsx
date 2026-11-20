@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Field } from "@/components/tool/field";
 import { OutputCode } from "@/components/tool/output-code";
+import { CommandRunner } from "@/components/tool/command-runner";
 import { Segmented } from "@/components/tool/segmented";
 import { ToolLayout } from "@/components/tool/tool-layout";
 import { openExternal } from "@/lib/open-url";
@@ -120,6 +121,7 @@ export default function CommandDetail({ item }: DetailProps) {
             />
           )}
           <OutputCode label="Command" code={output} />
+          <CommandRunner command={output} danger={cmd.danger} />
           <p className="text-xs text-muted-foreground">
             Verified against the official docs · {cmd.verified}
           </p>

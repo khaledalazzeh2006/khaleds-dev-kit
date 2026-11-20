@@ -48,6 +48,12 @@ docs/               analysis, architecture, roadmap, decisions (ADRs)
   Promises (e.g. `scrollIntoView` in WebView2) and React crashes with "destroy is not a function".
 - Test in `pnpm tauri dev` (StrictMode runs effect cleanups immediately), not only in a build.
 
+## Native side (src-tauri/src)
+- `db.rs` (sqlx), `runner.rs` (commands/terminal), `vscode.rs` (snippets, project folders). Frontend calls
+  them only through `src/lib/native.ts`. Every new Rust command: add to `generate_handler!` in lib.rs,
+  a typed wrapper in native.ts, a Rust test, and a browser fallback in the UI.
+- Rust tests: `cd src-tauri && cargo test` (DB tests against real servers are `--ignored`, see db.rs).
+
 ## Skills (in .claude/skills/)
 - `ui-guidelines` — before building or changing any screen or component.
 - `new-module` — when adding a new section/module to the app.

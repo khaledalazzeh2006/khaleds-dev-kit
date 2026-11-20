@@ -1,11 +1,12 @@
 import { useRef, useState } from "react";
 import { useNavigate } from "@tanstack/react-router";
-import { Download, FileUp, Plus, Star, BookmarkPlus } from "lucide-react";
+import { BookmarkPlus, Download, FileUp, Plus, Star, Zap } from "lucide-react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Kbd } from "@/components/kbd";
 import { OutputCode } from "@/components/tool/output-code";
 import { isMac } from "@/lib/platform";
+import { installVsCodeSnippets, isDesktop } from "@/lib/native";
 import { saveBlob } from "@/lib/save-file";
 import { useLibrary } from "@/lib/store/library";
 import { makeBackup, parseBackup } from "../lib/backup";
@@ -93,6 +94,20 @@ export default function Manage() {
     }
   });
 
+  const install = async () => {
+    try {
+      const path = await installVsCodeSnippets(vscode);
+      toast.success(
+        `Installed ${snippets.length} snippet${snippets.length === 1 ? "" : "s"} into VS Code`,
+        {
+          description: path,
+        },
+      );
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : String(e));
+    }
+  };
+
   const download = async (text: string, name: string) => {
     if (await saveBlob(new Blob([text], { type: "application/json" }), name))
       toast.success(`Saved ${name}`);
@@ -144,8 +159,14 @@ export default function Manage() {
               Use your library in VS Code: type a snippet’s prefix and press Tab.
             </p>
             <div className="flex flex-wrap gap-2">
+              {isDesktop() && (
+                <Button size="sm" disabled={!snippets.length} onClick={() => void install()}>
+                  <Zap /> Install into VS Code
+                </Button>
+              )}
               <Button
                 size="sm"
+                variant={isDesktop() ? "outline" : "default"}
                 disabled={!snippets.length}
                 onClick={() => void download(vscode, "khaleds-dev-kit.code-snippets")}
               >
@@ -168,8 +189,11 @@ export default function Manage() {
               escaped)
             </label>
             <ol className="list-decimal space-y-1 pl-5 text-xs text-muted-foreground">
+              {isDesktop() && (
+                <li>Install writes it straight into VS Code (updates the same file every time).</li>
+              )}
               <li>
-                Save the file into your VS Code snippets folder:{" "}
+                Or save the file into your VS Code snippets folder:{" "}
                 <code className="font-mono break-all text-foreground">{SNIPPETS_FOLDER}</code>
               </li>
               <li>

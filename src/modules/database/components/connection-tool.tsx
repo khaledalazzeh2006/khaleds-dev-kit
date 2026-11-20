@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { CopyRows } from "@/components/tool/copy-rows";
 import { Field } from "@/components/tool/field";
@@ -12,6 +11,7 @@ import {
   type ConnectionOptions,
   type Engine,
 } from "../lib/connection";
+import { useDbSecrets } from "../lib/session";
 
 const DEFAULT: ConnectionOptions = {
   engine: "postgresql",
@@ -30,7 +30,8 @@ export default function ConnectionTool() {
     "db:conn",
     DEFAULT,
   );
-  const [password, setPassword] = useState("");
+  const password = useDbSecrets((s) => s.password);
+  const setPassword = useDbSecrets((s) => s.setPassword);
   const o: ConnectionOptions = { ...saved, password };
   const set = (patch: Partial<ConnectionOptions>) => {
     const { password: pw, ...rest } = patch;

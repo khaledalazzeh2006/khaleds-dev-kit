@@ -45,6 +45,23 @@ export const databaseItems: ModuleItem[] = [
     ],
   },
   {
+    id: "query",
+    title: "Connect & query",
+    description: "Run SQL on your real database",
+    group: "Tools",
+    tags: ["live"],
+    keywords: [
+      "connect",
+      "postgres",
+      "mysql",
+      "sqlite",
+      "select",
+      "browse",
+      "client",
+      "import schema",
+    ],
+  },
+  {
     id: "seed",
     title: "Seed data",
     description: "Fake rows as INSERTs, JSON or CSV",
