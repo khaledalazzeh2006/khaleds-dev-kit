@@ -53,6 +53,7 @@ docs/               analysis, architecture, roadmap, decisions (ADRs)
 - `new-module` — when adding a new section/module to the app.
 - `content-data` — when adding or editing commands, snippets or other JSON content.
 - `phase-review` — at the end of a phase or a big step, before committing.
+- `templates` — when adding or changing template sections/presets (src/modules/templates).
 
 ## Commands (run on Windows from the repo root)
 - `pnpm tauri dev` — run the desktop app with hot reload

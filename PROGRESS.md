@@ -1,6 +1,6 @@
 # Progress
 
-**Current phase:** 7 — Database (waiting for Khaled to test)
+**Current phase:** 7.5 — Templates (waiting for Khaled to test)
 **Last updated:** 2026-11-20
 
 ## Done
@@ -70,7 +70,7 @@
 - [x] 85 tests; screenshots checked (device preview rendered the app itself in 3 frames)
 - [x] Checked by Khaled on Windows
 
-## Phase 7 — Database (built, waiting for Khaled's check)
+## Phase 7 — Database (done)
 - [x] Module `database` (order 35): Schema designer (tables/columns, PK/NULL/UQ, defaults, FK + on delete, templates Blank/Blog/Shop/Auth with Undo, validation, Import SQL from CREATE TABLE)
 - [x] Outputs: PostgreSQL / MySQL / SQLite / SQL Server DDL, Prisma 7 (prisma-client generator), TypeORM, Mongoose, EF Core, Mermaid ER; ER diagram view + Expand dialog
 - [x] SQL Server rules: no RESTRICT (→ NO ACTION), multiple cascade paths downgraded to NO ACTION, Prisma `onUpdate: NoAction`
@@ -78,7 +78,16 @@
 - [x] Connection string builder (password kept in memory only, never saved)
 - [x] 13 SQL snippets (content/snippets/sql) grouped Queries / Writes / Performance / PostgreSQL
 - [x] Verified: all 16 template×provider Prisma schemas pass Prisma's validator; DDL + seeds run in SQLite with foreign_keys=ON; 101 tests
-- [ ] Checked by Khaled on Windows (`pnpm install` first — new dep @faker-js/faker)
+- [x] Checked by Khaled on Windows, committed
+
+## Phase 7.5 — Templates (built, waiting for Khaled's check)
+- [x] Module `templates` (order 60): 11 presets (Landing, E-commerce, Product, Cart, Dashboard, Portfolio, Blog home, Blog article, Login, Sign up, Forgot password) built from 30 reusable sections
+- [x] Builder: add / remove (Undo) / reorder sections, brand name + color, light/dark, corners, font; live preview at desktop/tablet/phone widths; Code view of every exported file
+- [x] Export .zip: React (Vite + TS + Tailwind v4), Next.js 16 (App Router, Server Components), or plain HTML + compiled CSS
+- [x] Tailwind compiled inside the app, offline (no CDN); navbar links follow the sections on the page; no JS needed in exported sites (menus/FAQ use <details>)
+- [x] Verified: every class name is a real Tailwind utility, every section is valid JSX; an export with all 30 sections passes `tsc` + `vite build`, a Next.js export passes `next build`; 140 tests; screenshots checked
+- [x] New skill: .claude/skills/templates/SKILL.md
+- [ ] Checked by Khaled on Windows (`pnpm install` first — new deps fflate, tailwindcss moved to dependencies)
 
 ## Open questions / later
 - Khaled's Node.js is managed by **fnm** (default v26). Fixed for every shell by adding `%APPDATA%\fnm\aliases\default` to the user PATH (pnpm is installed globally there). If node/pnpm go missing after changing Node versions, check that folder first.
@@ -91,6 +100,9 @@
 - CSP is `null` in tauri.conf.json for now → set a strict CSP in Phase 10.
 - productName is `Khaleds Dev Kit` (no apostrophe, safer for installers); window title keeps "Khaled's".
 
+## Idea backlog
+- Templates, next steps: "matching database" button (Shop → e-commerce, Auth → login pages) via a shared store in src/lib; optional GSAP entrance animations; multi-page export (e.g. store home + product + cart in one project); edit texts inline.
+
 ## Phase log
 | Phase | Status | Notes |
 |---|---|---|
@@ -101,7 +113,8 @@
 | 4 CSS Visual Editors + Design | done | 2026-11-20 |
 | 5 GSAP & Scroll | done | 2026-11-20 |
 | 6 Responsive Tools | done | 2026-11-20 |
-| 7 Database | built | 2026-11-20, waiting for Windows check |
+| 7 Database | done | 2026-11-20 |
+| 7.5 Templates | built | 2026-11-20, waiting for Windows check |
 | 8 My Library + VS Code snippet export | — | |
 | 9 Integrations (DB connect, run commands, VS Code extension) | — | |
 | 10 Polish (installer, auto-update, perf) | — | |

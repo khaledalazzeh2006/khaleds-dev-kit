@@ -7,6 +7,7 @@ import { designModule } from "@/modules/design";
 import { gsapModule } from "@/modules/gsap";
 import { responsiveModule } from "@/modules/responsive";
 import { databaseModule } from "@/modules/database";
+import { templatesModule } from "@/modules/templates";
 
 /** Every module in the app. Adding a module = one import + one entry here. */
 export const modules: DevKitModule[] = [
@@ -18,6 +19,7 @@ export const modules: DevKitModule[] = [
   gsapModule,
   designModule,
   responsiveModule,
+  templatesModule,
 ].sort((a, b) => a.order - b.order);
 
 export function getModule(id: string | undefined): DevKitModule | undefined {
