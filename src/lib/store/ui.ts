@@ -10,6 +10,8 @@ interface UiState {
   setNarrowView: (view: "list" | "detail") => void;
   paletteOpen: boolean;
   setPaletteOpen: (open: boolean) => void;
+  aboutOpen: boolean;
+  setAboutOpen: (open: boolean) => void;
   /** Most recent first, "<moduleId>:<itemId>" keys. */
   recent: string[];
   pushRecent: (key: string) => void;
@@ -24,6 +26,8 @@ export const useUi = create<UiState>()(
       setNarrowView: (narrowView) => set({ narrowView }),
       paletteOpen: false,
       setPaletteOpen: (paletteOpen) => set({ paletteOpen }),
+      aboutOpen: false,
+      setAboutOpen: (aboutOpen) => set({ aboutOpen }),
       recent: [],
       pushRecent: (key) =>
         set((s) => ({ recent: [key, ...s.recent.filter((k) => k !== key)].slice(0, 20) })),

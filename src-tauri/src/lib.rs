@@ -1,3 +1,4 @@
+mod backups;
 mod db;
 mod runner;
 mod vscode;
@@ -8,6 +9,8 @@ pub fn run() {
         .plugin(tauri_plugin_opener::init())
         .plugin(tauri_plugin_dialog::init())
         .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_process::init())
         .manage(runner::Running::default())
         .invoke_handler(tauri::generate_handler![
             db::db_query,
@@ -17,6 +20,10 @@ pub fn run() {
             vscode::vscode_install_snippets,
             vscode::write_project,
             vscode::open_in_vscode,
+            backups::library_backup,
+            backups::library_backups,
+            backups::library_backup_read,
+            backups::backups_path,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

@@ -20,3 +20,7 @@ Thumbs.db
 !.vscode/extensions.json
 .idea
 *.local
+
+# signing keys (never commit)
+*.key
+*.key.pub

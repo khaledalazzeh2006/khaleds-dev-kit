@@ -27,7 +27,10 @@ function tailwindIndexCss() {
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
+const pkg = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf8")) as { version: string };
+
 export default defineConfig(() => ({
+  define: { __APP_VERSION__: JSON.stringify(pkg.version) },
   plugins: [react(), tailwindcss(), tailwindIndexCss()],
   resolve: {
     alias: { "@": fileURLToPath(new URL("./src", import.meta.url)) },

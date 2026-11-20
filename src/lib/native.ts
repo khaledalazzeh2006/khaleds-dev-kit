@@ -82,3 +82,29 @@ export function joinPath(dir: string, name: string): string {
   const sep = dir.includes("\\") && !dir.includes("/") ? "\\" : "/";
   return dir.replace(/[\\/]+$/, "") + sep + name;
 }
+
+// ---------- app: version, updates, backups ----------
+
+export async function appVersion(): Promise<string> {
+  if (!isDesktop()) return __APP_VERSION__;
+  const { getVersion } = await import("@tauri-apps/api/app");
+  return getVersion();
+}
+
+export interface BackupFile {
+  name: string;
+  size: number;
+}
+
+export const writeLibraryBackup = (date: string, content: string) =>
+  call<string>("library_backup", { date, content });
+export const listLibraryBackups = () => call<BackupFile[]>("library_backups", {});
+export const readLibraryBackup = (name: string) => call<string>("library_backup_read", { name });
+export const backupsPath = () => call<string>("backups_path", {});
+
+/** Show a folder/file in Explorer / Finder. */
+export async function revealPath(path: string) {
+  if (!isDesktop()) throw new Error(DESKTOP_ONLY);
+  const { revealItemInDir } = await import("@tauri-apps/plugin-opener");
+  await revealItemInDir(path);
+}

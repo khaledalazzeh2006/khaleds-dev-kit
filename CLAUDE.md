@@ -49,10 +49,15 @@ docs/               analysis, architecture, roadmap, decisions (ADRs)
 - Test in `pnpm tauri dev` (StrictMode runs effect cleanups immediately), not only in a build.
 
 ## Native side (src-tauri/src)
-- `db.rs` (sqlx), `runner.rs` (commands/terminal), `vscode.rs` (snippets, project folders). Frontend calls
+- `db.rs` (sqlx), `runner.rs` (commands/terminal), `vscode.rs` (snippets, project folders), `backups.rs` (daily library backups). Frontend calls
   them only through `src/lib/native.ts`. Every new Rust command: add to `generate_handler!` in lib.rs,
   a typed wrapper in native.ts, a Rust test, and a browser fallback in the UI.
 - Rust tests: `cd src-tauri && cargo test` (DB tests against real servers are `--ignored`, see db.rs).
+
+## Security & releases
+- Strict CSP in tauri.conf.json (no 'unsafe-eval'). New libraries must not need eval; check with a
+  CSP header in the browser (see PROGRESS Phase 10) before adding them.
+- Releases: RELEASE.md (`pnpm set-version x.y.z`, tag `vx.y.z`, GitHub Actions builds + signs).
 
 ## Skills (in .claude/skills/)
 - `ui-guidelines` — before building or changing any screen or component.

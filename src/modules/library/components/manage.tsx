@@ -9,7 +9,10 @@ import { isMac } from "@/lib/platform";
 import { installVsCodeSnippets, isDesktop } from "@/lib/native";
 import { saveBlob } from "@/lib/save-file";
 import { useLibrary } from "@/lib/store/library";
-import { makeBackup, parseBackup } from "../lib/backup";
+import {
+  makeLibraryBackup as makeBackup,
+  parseLibraryBackup as parseBackup,
+} from "@/lib/store/library-backup-format";
 import { SNIPPET_PREFIX } from "../lib/items";
 import { fromVsCode, languageFromFileName, toVsCodeText } from "../lib/vscode";
 

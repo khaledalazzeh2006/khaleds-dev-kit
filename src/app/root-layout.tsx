@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { Toaster } from "sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -7,6 +8,9 @@ import { useTheme } from "@/lib/store/theme";
 import { useActiveOutput } from "@/lib/store/output";
 import { copyText } from "@/lib/clipboard";
 import { CommandPalette } from "./command-palette";
+import { AboutDialog } from "./about-dialog";
+import { startLibraryBackups } from "@/lib/library-backup";
+import { checkForUpdateInBackground } from "@/lib/updates";
 import { modules } from "./registry";
 
 /** Global pieces that live outside any page: hotkeys, palette, toasts, tooltips. */
@@ -14,6 +18,10 @@ export function RootLayout() {
   const navigate = useNavigate();
   const { setPaletteOpen, toggleSidebar } = useUi.getState();
   const theme = useTheme((s) => s.mode);
+
+  // Desktop app only (both are no-ops in the browser).
+  useEffect(() => startLibraryBackups(), []);
+  useEffect(() => checkForUpdateInBackground(() => useUi.getState().setAboutOpen(true)), []);
 
   const goToModule = (n: number) => (e: KeyboardEvent) => {
     const m = modules[n - 1];
@@ -45,6 +53,7 @@ export function RootLayout() {
     <TooltipProvider>
       <Outlet />
       <CommandPalette />
+      <AboutDialog />
       <Toaster
         position="bottom-center"
         theme={theme}

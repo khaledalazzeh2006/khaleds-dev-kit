@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { SNIPPET_LANGUAGES, type LibrarySnippet } from "@/lib/store/library";
+import { SNIPPET_LANGUAGES, type LibrarySnippet } from "./library";
 
 const snippetSchema = z.object({
   id: z.string(),
@@ -24,7 +24,7 @@ const backupSchema = z.object({
 
 export type LibraryBackup = z.infer<typeof backupSchema>;
 
-export function makeBackup(snippets: LibrarySnippet[], favorites: string[]): string {
+export function makeLibraryBackup(snippets: LibrarySnippet[], favorites: string[]): string {
   const backup: LibraryBackup & { exportedAt: string } = {
     app: "khaleds-dev-kit",
     kind: "library",
@@ -36,7 +36,7 @@ export function makeBackup(snippets: LibrarySnippet[], favorites: string[]): str
   return JSON.stringify(backup, null, 2) + "\n";
 }
 
-export function parseBackup(text: string): LibraryBackup {
+export function parseLibraryBackup(text: string): LibraryBackup {
   let data: unknown;
   try {
     data = JSON.parse(text);

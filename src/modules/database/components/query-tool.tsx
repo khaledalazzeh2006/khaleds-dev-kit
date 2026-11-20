@@ -436,7 +436,7 @@ export default function QueryTool() {
           )}
 
           {result && (
-            <div className="flex min-h-48 flex-1 flex-col overflow-hidden rounded-lg border">
+            <div className="flex flex-1 flex-col overflow-hidden rounded-lg border">
               <div className="flex h-9 shrink-0 items-center gap-3 border-b bg-muted/40 px-3 text-xs text-muted-foreground">
                 <span>
                   {result.columns.length
@@ -459,6 +459,13 @@ export default function QueryTool() {
                   </span>
                 )}
               </div>
+              {result.columns.length === 0 && (
+                <p className="p-4 text-sm text-muted-foreground">
+                  {result.rowsAffected > 0
+                    ? `${result.rowsAffected} row${result.rowsAffected === 1 ? "" : "s"} changed.`
+                    : "No rows returned (the table may be empty)."}
+                </p>
+              )}
               {result.columns.length > 0 && (
                 <div className="min-h-0 flex-1 overflow-auto">
                   <table className="w-max min-w-full border-collapse font-mono text-xs">

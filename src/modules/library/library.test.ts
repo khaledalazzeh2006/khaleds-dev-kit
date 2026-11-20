@@ -1,6 +1,9 @@
 import type { DevKitModule } from "@/app/module";
 import { useLibrary } from "@/lib/store/library";
-import { makeBackup, parseBackup } from "./lib/backup";
+import {
+  makeLibraryBackup as makeBackup,
+  parseLibraryBackup as parseBackup,
+} from "@/lib/store/library-backup-format";
 import { favoriteItemId, favoriteKey, libraryItems } from "./lib/items";
 import {
   escapeBody,

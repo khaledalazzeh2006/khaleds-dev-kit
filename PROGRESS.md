@@ -1,6 +1,6 @@
 # Progress
 
-**Current phase:** 9 — Integrations (waiting for Khaled to test)
+**Current phase:** 10 — Polish & release (waiting for Khaled to test)
 **Last updated:** 2026-11-20
 
 ## Done
@@ -100,7 +100,7 @@
 - [x] 148 tests; screenshots checked (star, Mod D, Save toast, favorites view, editor, Mod K finds snippets)
 - [x] Checked by Khaled on Windows, committed
 
-## Phase 9 — Integrations (built, waiting for Khaled's check)
+## Phase 9 — Integrations (done)
 - [x] Rust side (src-tauri/src): `db.rs` (sqlx 0.9: PostgreSQL, MySQL/MariaDB, SQLite; every value returned as text; read-only enforced by the database; 15 s connect / 2 min query timeouts; one connection per call, nothing stored), `runner.rs` (run a command in a folder with streamed output + Stop that kills the whole tree; open a real terminal: Windows Terminal → cmd fallback, macOS Terminal), `vscode.rs` (install snippets into VS Code's user folder, write a generated project into a new/empty folder with path checks, open a folder in VS Code)
 - [x] Frontend bridge: `src/lib/native.ts` (typed invoke wrappers, isDesktop, pickFolder); browser shows "desktop app only" hints
 - [x] Database → **Connect & query**: fields or pasted URL (Prisma URLs cleaned), tables sidebar, SQL editor (Mod Enter), Read-only on by default, max rows, results grid (NULL shown), copy CSV/JSON, **Import into designer** (introspection → Schema, Undo)
@@ -108,8 +108,19 @@
 - [x] Commands: Run here / Terminal / VS Code under every command, remembered project folder (+ recent); danger commands need a second click
 - [x] My Library: **Install into VS Code**; Templates: **Create folder** → "Open in VS Code"
 - [x] Verified in Claude's Linux sandbox: `cargo clippy` clean; Rust tests incl. real PostgreSQL 16 + MariaDB (`DEVKIT_PG_URL=… DEVKIT_MYSQL_URL=… cargo test -- --ignored`); introspection SQL run on all 3 engines with our Shop/Auth/Blog DDL → fixtures in `src/modules/database/fixtures/` (read-back equals the original schema); 154 frontend tests; UI checked with a mocked Tauri bridge
-- [ ] Windows-only code paths (cmd/taskkill/wt/code) reviewed but only compiled on Windows → check on Khaled's PC
-- [ ] Checked by Khaled on Windows (first `pnpm tauri dev` compiles sqlx + SQLite: a few minutes)
+- [x] Checked by Khaled on Windows, committed
+
+## Phase 10 — Polish & release (built, waiting for Khaled's check)
+- [x] App icon (src-tauri/icons/app-icon.svg → all sizes via `tauri icon`), favicon + logo in the title bar
+- [x] Version 1.0.0; bundle metadata; Windows NSIS per-user installer; macOS 11+
+- [x] Auto-update: tauri-plugin-updater + process (signed, `requireSignedVersion`), ⓘ About dialog (check / install & restart), quiet check 8 s after launch; empty config until `pnpm setup:updater` (app runs fine without it)
+- [x] GitHub Actions: `release.yml` (tag v* → Windows + macOS arm/intel installers + latest.json via tauri-action v1), `ci.yml` (pnpm check + cargo test); RELEASE.md; `pnpm set-version`, `pnpm setup:updater`
+- [x] Strict CSP (no unsafe-eval; wasm allowed; frames http/https for Device preview); zod set to jitless. Checked: every one of 143 items opened in Chrome under the same CSP → 0 violations, WebP encode (WASM worker) works
+- [x] Library auto-backup: one JSON per day in the app data folder, last 14 kept (backups.rs); restore (merge) + Show folder in ⓘ
+- [x] Real app smoke test in Claude's Linux sandbox (Xvfb): app starts with all plugins, CSP active, Connect & query → real PostgreSQL → tables → Import into designer all work through Rust
+- [x] Fixed: empty query result now says "No rows returned"
+- [ ] Khaled: `pnpm install`, `pnpm tauri dev`, then `pnpm tauri build` once (installer + CSP in release mode)
+- [ ] Khaled: GitHub repo + signing key + secrets (RELEASE.md), then tag v1.0.0
 
 ## Open questions / later
 - Khaled's Node.js is managed by **fnm** (default v26). Fixed for every shell by adding `%APPDATA%\fnm\aliases\default` to the user PATH (pnpm is installed globally there). If node/pnpm go missing after changing Node versions, check that folder first.
@@ -118,10 +129,9 @@
 - Package-manager switch (npm ↔ pnpm ↔ yarn) on install commands — later; for now npm and pnpm have their own lists.
 - Prisma 8 is in RC; commands target Prisma 7 (stable). Re-check when 8 is GA.
 - shadcn registry is blocked in Claude's sandbox: button/tooltip/dialog/input were written by hand in shadcn style. On Windows, `pnpm dlx shadcn@latest add <x>` works normally.
-- Library lives in localStorage; consider a file-based store with automatic backups (Phase 10). VS Code install is done (Phase 9).
+- Library lives in localStorage with daily file backups (Phase 10). VS Code install is done (Phase 9).
 - SQL Server / MongoDB live connections: not in Phase 9 (sqlx has no SQL Server driver); add with tiberius / mongodb crates if needed.
 - Clipboard uses navigator.clipboard; switch to the Tauri clipboard plugin if WebView2/macOS ever refuses.
-- CSP is `null` in tauri.conf.json for now → set a strict CSP in Phase 10.
 - productName is `Khaleds Dev Kit` (no apostrophe, safer for installers); window title keeps "Khaled's".
 
 ## Idea backlog
@@ -140,5 +150,5 @@
 | 7 Database | done | 2026-11-20 |
 | 7.5 Templates | done | 2026-11-20 |
 | 8 My Library + VS Code snippet export | done | 2026-11-20 |
-| 9 Integrations (DB connect, run commands, VS Code) | built | 2026-11-20, waiting for Windows check |
-| 10 Polish (installer, auto-update, perf) | — | |
+| 9 Integrations (DB connect, run commands, VS Code) | done | 2026-11-20 |
+| 10 Polish (icon, installers, auto-update, CSP, backups) | built | 2026-11-20, waiting for Windows check + GitHub setup |
