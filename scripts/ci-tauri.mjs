@@ -46,17 +46,16 @@ if (args[0] === "build") {
     annotate("Signing key missing", "The secret TAURI_SIGNING_PRIVATE_KEY is empty or not set (check its exact name in Settings → Secrets and variables → Actions).");
     process.exit(1);
   }
-  if (password === undefined || password === "") {
-    annotate("Signing password missing", "The secret TAURI_SIGNING_PRIVATE_KEY_PASSWORD is empty or not set (check its exact name).");
-    process.exit(1);
-  }
+  // The key may have no password (generated with `tauri signer generate --ci`); then the
+  // password secret can simply be left out.
+  if (!password) delete process.env.TAURI_SIGNING_PRIVATE_KEY_PASSWORD;
   const file = join(mkdtempSync(join(tmpdir(), "sig-")), "check.txt");
   writeFileSync(file, "signing check\n");
   const check = await run(["signer", "sign", file], true);
   if (check.code !== 0) {
     const out = strip(check.out);
     const hint = /password/i.test(out)
-      ? "TAURI_SIGNING_PRIVATE_KEY_PASSWORD doesn't match the key (type it again, without quotes or spaces)."
+      ? "The key has a password and TAURI_SIGNING_PRIVATE_KEY_PASSWORD doesn't match it. Easiest fix: make a key with no password (see RELEASE.md) and delete the password secret."
       : "TAURI_SIGNING_PRIVATE_KEY isn't a valid key (copy the whole .key file again).";
     annotate("Signing check failed", `${hint}\n\n${out.trim().split("\n").slice(-8).join("\n")}`);
     process.exit(1);

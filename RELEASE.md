@@ -17,10 +17,10 @@ update is signed, and the app refuses files that weren't signed with your key.
 2. **Make your signing key** (keep it secret, back it up — without it you can't ship updates):
 
    ```bash
-   pnpm tauri signer generate -w ~/.tauri/khaleds-dev-kit.key
+   pnpm tauri signer generate --ci --force -w ~/.tauri/khaleds-dev-kit.key
    ```
 
-   It asks for a password (remember it). It writes `khaleds-dev-kit.key` (private) and
+   `--ci` makes a key with no password (one less secret to get wrong). It writes `khaleds-dev-kit.key` (private) and
    `khaleds-dev-kit.key.pub` (public) in `~/.tauri/` (on Windows: `C:\Users\<you>\.tauri\`).
 
 3. **Point the app at your releases** (writes the public key + URL into `src-tauri/tauri.conf.json`):
@@ -33,7 +33,9 @@ update is signed, and the app refuses files that weren't signed with your key.
 4. **Give GitHub the private key**: repo → Settings → Secrets and variables → Actions →
    New repository secret:
    - `TAURI_SIGNING_PRIVATE_KEY` = the whole content of `~/.tauri/khaleds-dev-kit.key`
-   - `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` = the password from step 2
+     (Windows: `Get-Content -Raw "$HOME\.tauri\khaleds-dev-kit.key" | Set-Clipboard`, then paste)
+   - No password secret needed. If a key with a password is used instead, add
+     `TAURI_SIGNING_PRIVATE_KEY_PASSWORD` with that exact password.
 
 ## Every release
 

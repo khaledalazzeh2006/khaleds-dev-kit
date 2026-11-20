@@ -67,7 +67,7 @@
   },
   "plugins": {
     "updater": {
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEQzRjI3RDM2OUM4QzgxNjUKUldSbGdZeWNObjN5MDN3Y25HWjhtTmxUeGFVeE9MWWNZTWtXSDFGUlpvbmtpaXlCZXZnMVdhb2cK",
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhDNDk5MEIwNTIwNEQwNjcKUldSbjBBUlNzSkJKakFFS09NMng3SUkwWXJrNDhMQ2ZxRldaOU52RXh3Nng2dDhYNnJnbHBkc0UK",
       "endpoints": [
         "https://github.com/khaledalazzeh2006/khaleds-dev-kit/releases/latest/download/latest.json"
       ],
