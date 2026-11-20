@@ -1,0 +1,58 @@
+{
+  "id": "gsap-draw-svg",
+  "category": "gsap",
+  "group": "Text & SVG",
+  "title": "Draw an SVG",
+  "description": "Draws SVG strokes like a pen (DrawSVG).",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\nimport { DrawSVGPlugin } from \"gsap/DrawSVGPlugin\";\n\ngsap.registerPlugin(DrawSVGPlugin);\n\ngsap.from(\".logo path\", {\n  drawSVG: 0,\n  duration: {{duration}},\n  ease: \"{{ease}}\",\n  stagger: {{stagger}},\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\nimport { DrawSVGPlugin } from \"gsap/DrawSVGPlugin\";\n\ngsap.registerPlugin(useGSAP, DrawSVGPlugin);\n\nexport function DrawSvg() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      gsap.from(\".logo path\", {\n        drawSVG: 0,\n        duration: {{duration}},\n        ease: \"{{ease}}\",\n        stagger: {{stagger}},\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container}>\n      <svg className=\"logo\" viewBox=\"0 0 100 100\" fill=\"none\" stroke=\"currentColor\" strokeWidth={4}>\n        <path d=\"M10 80 L50 10 L90 80 Z\" />\n      </svg>\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "duration",
+      "label": "Duration",
+      "type": "number",
+      "default": 1.5,
+      "min": 0.2,
+      "max": 5,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "key": "stagger",
+      "label": "Stagger",
+      "type": "number",
+      "default": 0.2,
+      "min": 0,
+      "max": 1,
+      "step": 0.05,
+      "unit": "s"
+    },
+    {
+      "key": "ease",
+      "label": "Ease",
+      "type": "ease",
+      "default": "power2.inOut",
+      "options": [
+        "none",
+        "power1.out",
+        "power2.out",
+        "power3.out",
+        "power4.out",
+        "power2.inOut",
+        "power3.inOut",
+        "expo.out",
+        "sine.inOut",
+        "circ.out",
+        "back.out(1.7)",
+        "elastic.out(1, 0.3)",
+        "bounce.out"
+      ]
+    }
+  ],
+  "preview": "draw-svg",
+  "tags": ["drawsvg", "svg"],
+  "source": "https://gsap.com/docs/v3/Plugins/DrawSVGPlugin",
+  "verified": "2026-11"
+}

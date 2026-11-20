@@ -1,0 +1,14 @@
+{
+  "id": "gsap-match-media",
+  "category": "gsap",
+  "group": "Setup",
+  "title": "Responsive animations (matchMedia)",
+  "description": "Different animations per breakpoint, auto-reverted when it stops matching.",
+  "language": "js",
+  "code": "const mm = gsap.matchMedia();\n\nmm.add(\"(min-width: 768px)\", () => {\n  // desktop only\n  gsap.to(\".box\", { x: 300 });\n});\n\nmm.add(\"(max-width: 767px)\", () => {\n  // mobile only\n  gsap.to(\".box\", { y: 100 });\n});\n\nmm.add(\"(prefers-reduced-motion: no-preference)\", () => {\n  // only for users who didn't ask for reduced motion\n});\n",
+  "codeReact": "useGSAP(\n  () => {\n    const mm = gsap.matchMedia();\n    mm.add(\"(min-width: 768px)\", () => {\n      gsap.to(\".box\", { x: 300 });\n    });\n    mm.add(\"(prefers-reduced-motion: no-preference)\", () => {\n      // motion that respects user settings\n    });\n  },\n  { scope: container },\n);\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "tags": ["setup", "responsive", "accessibility"],
+  "source": "https://gsap.com/docs/v3/GSAP/gsap.matchMedia()",
+  "verified": "2026-11"
+}

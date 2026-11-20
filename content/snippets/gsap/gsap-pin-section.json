@@ -1,0 +1,37 @@
+{
+  "id": "gsap-pin-section",
+  "category": "gsap",
+  "group": "ScrollTrigger",
+  "title": "Pin a section",
+  "description": "Keeps a section fixed while its content moves with the scroll.",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(ScrollTrigger);\n\ngsap.to(\".panel\", {\n  x: {{distance}},\n  rotation: 360,\n  ease: \"none\",\n  scrollTrigger: {\n    trigger: \".section\",\n    pin: true,\n    start: \"top top\",\n    end: \"+={{distance}}\",\n    scrub: {{scrub}},\n  },\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(useGSAP, ScrollTrigger);\n\nexport function PinSection() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      gsap.to(\".panel\", {\n        x: {{distance}},\n        rotation: 360,\n        ease: \"none\",\n        scrollTrigger: {\n          trigger: \".section\",\n          pin: true,\n          start: \"top top\",\n          end: \"+={{distance}}\",\n          scrub: {{scrub}},\n        },\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <section ref={container} className=\"section\">\n      <div className=\"panel\" />\n    </section>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "distance",
+      "label": "Scroll distance",
+      "type": "number",
+      "default": 600,
+      "min": 100,
+      "max": 3000,
+      "step": 50,
+      "unit": "px"
+    },
+    {
+      "key": "scrub",
+      "label": "Scrub smoothing",
+      "type": "number",
+      "default": 1,
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "unit": "s"
+    }
+  ],
+  "preview": "pin-section",
+  "tags": ["scrolltrigger", "pin"],
+  "source": "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+  "verified": "2026-11"
+}

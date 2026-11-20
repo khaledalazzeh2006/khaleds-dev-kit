@@ -1,0 +1,27 @@
+{
+  "id": "gsap-scroll-progress",
+  "category": "gsap",
+  "group": "ScrollTrigger",
+  "title": "Scroll progress bar",
+  "description": "A bar that fills as the page scrolls (scrub).",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(ScrollTrigger);\n\n// CSS: .progress { transform-origin: left; transform: scaleX(0); }\ngsap.to(\".progress\", {\n  scaleX: 1,\n  ease: \"none\",\n  scrollTrigger: {\n    start: \"top top\",\n    end: \"max\",\n    scrub: {{scrub}},\n  },\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(useGSAP, ScrollTrigger);\n\nexport function ScrollProgress() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      // CSS: .progress { transform-origin: left; transform: scaleX(0); }\n      gsap.to(\".progress\", {\n        scaleX: 1,\n        ease: \"none\",\n        scrollTrigger: {\n          start: \"top top\",\n          end: \"max\",\n          scrub: {{scrub}},\n        },\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container}>\n      <div className=\"progress\" />\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "scrub",
+      "label": "Scrub smoothing",
+      "type": "number",
+      "default": 0.3,
+      "min": 0,
+      "max": 2,
+      "step": 0.1,
+      "unit": "s"
+    }
+  ],
+  "preview": "scroll-progress",
+  "tags": ["scrolltrigger", "scrub"],
+  "source": "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+  "verified": "2026-11"
+}

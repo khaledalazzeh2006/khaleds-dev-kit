@@ -1,0 +1,57 @@
+{
+  "id": "gsap-magnetic",
+  "category": "gsap",
+  "group": "Interaction",
+  "title": "Magnetic button",
+  "description": "The button follows the cursor a little, then springs back.",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\n\nconst btn = document.querySelector(\".magnetic\");\nconst xTo = gsap.quickTo(btn, \"x\", { duration: {{duration}}, ease: \"{{ease}}\" });\nconst yTo = gsap.quickTo(btn, \"y\", { duration: {{duration}}, ease: \"{{ease}}\" });\n\nbtn.addEventListener(\"mousemove\", (e) => {\n  const r = btn.getBoundingClientRect();\n  xTo((e.clientX - r.left - r.width / 2) * {{strength}});\n  yTo((e.clientY - r.top - r.height / 2) * {{strength}});\n});\nbtn.addEventListener(\"mouseleave\", () => {\n  xTo(0);\n  yTo(0);\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\n\ngsap.registerPlugin(useGSAP);\n\nexport function Magnetic() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      const btn = container.current!.querySelector<HTMLButtonElement>(\".magnetic\")!;\n      const xTo = gsap.quickTo(btn, \"x\", { duration: {{duration}}, ease: \"{{ease}}\" });\n      const yTo = gsap.quickTo(btn, \"y\", { duration: {{duration}}, ease: \"{{ease}}\" });\n      const move = (e: MouseEvent) => {\n        const r = btn.getBoundingClientRect();\n        xTo((e.clientX - r.left - r.width / 2) * {{strength}});\n        yTo((e.clientY - r.top - r.height / 2) * {{strength}});\n      };\n      const leave = () => {\n        xTo(0);\n        yTo(0);\n      };\n      btn.addEventListener(\"mousemove\", move);\n      btn.addEventListener(\"mouseleave\", leave);\n      return () => {\n        btn.removeEventListener(\"mousemove\", move);\n        btn.removeEventListener(\"mouseleave\", leave);\n      };\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container}>\n      <button className=\"magnetic\">Hover me</button>\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "strength",
+      "label": "Strength",
+      "type": "number",
+      "default": 0.4,
+      "min": 0.1,
+      "max": 1,
+      "step": 0.05
+    },
+    {
+      "key": "duration",
+      "label": "Duration",
+      "type": "number",
+      "default": 0.6,
+      "min": 0.1,
+      "max": 2,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "key": "ease",
+      "label": "Ease",
+      "type": "ease",
+      "default": "elastic.out(1, 0.3)",
+      "options": [
+        "none",
+        "power1.out",
+        "power2.out",
+        "power3.out",
+        "power4.out",
+        "power2.inOut",
+        "power3.inOut",
+        "expo.out",
+        "sine.inOut",
+        "circ.out",
+        "back.out(1.7)",
+        "elastic.out(1, 0.3)",
+        "bounce.out"
+      ]
+    }
+  ],
+  "preview": "magnetic",
+  "tags": ["hover", "quickto", "button"],
+  "source": "https://gsap.com/docs/v3/GSAP/gsap.quickTo()",
+  "verified": "2026-11"
+}

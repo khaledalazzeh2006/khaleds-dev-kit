@@ -1,6 +1,6 @@
 # Progress
 
-**Current phase:** 4 — CSS Visual Editors + Design (built, waiting for Khaled's check on Windows)
+**Current phase:** 5 — GSAP & Scroll (built, waiting for Khaled's check on Windows)
 **Last updated:** 2026-11-20
 
 ## Done
@@ -45,13 +45,23 @@
 - [x] 51 tests; screenshots checked for every tool (dark + light); WebP and AVIF encoding verified in Chromium
 - [x] Checked by Khaled on Windows, committed 6fa078f
 
-## Phase 4 — CSS Visual Editors + Design
+## Phase 4 — CSS Visual Editors + Design (done)
 - [x] Shared: ColorField, CssOutput (CSS ↔ Tailwind, remembered), Preview stage, SelectField
 - [x] CSS Tools module: Box shadow (layers, presets, light/dark stage), Gradient (linear/radial/conic, stops), Border radius (linked/separate), Flexbox, Grid (fixed / auto-fit), Glassmorphism, Transition & easing (draggable cubic-bezier + play demo), Clip path (presets + draggable points)
 - [x] Design module: Palette (50–950 in OKLCH, export @theme / CSS vars / JSON), Contrast checker (WCAG AA/AAA + UI), Type scale (fixed or fluid clamp), Spacing scale
 - [x] Pure generators in lib/ (css.ts, tailwind.ts, palette.ts, scale.ts, contrast.ts) — 70 tests total
 - [x] Screenshots checked for all 12 tools; drag on clip-path verified
-- [ ] Khaled: `pnpm tauri dev`, try the tools, then commit
+- [x] Checked by Khaled on Windows
+
+## Phase 5 — GSAP & Scroll
+- [x] Snippet content: 18 JSON snippets in content/snippets/gsap (schema + zod now support `group`, `codeReact`, param `options`)
+- [x] Module `gsap` (GSAP & Scroll): groups Basics / ScrollTrigger / Text & SVG / Interaction / Setup / Tools
+- [x] Detail: live preview (15 previews, ScrollTrigger ones scroll inside their own box via `scroller`), params (number/select/ease/boolean/color), Replay, React (useGSAP) ↔ Vanilla code, install line, Docs
+- [x] Ease visualizer: curve from gsap.parseEase + animated dot, custom ease input
+- [x] Code blocks: ligatures off (=> stays =>)
+- [x] Tests: every snippet (both flavors, filled with defaults) parses with Prettier; params declared; eases valid; React component names never shadow imports — 77 tests
+- [x] Screenshots: all previews checked, scroll + Flip interactions verified
+- [ ] Khaled: `pnpm install` + `pnpm tauri dev`, play with previews, then commit
 
 ## Open questions / later
 - `fluidClamp()` (design/lib/scale.ts) is reused by the Responsive phase for the clamp() generator.
@@ -70,8 +80,8 @@
 | 1 Shell (layout, sidebar, Mod+K, registry, themes) | done | 2026-11-20 |
 | 2 Terminal Commands | done | 2026-11-20 |
 | 3 Formatters + Converters | done | 2026-11-20 |
-| 4 CSS Visual Editors + Design | review | 2026-11-20 |
-| 5 GSAP & Scroll | — | |
+| 4 CSS Visual Editors + Design | done | 2026-11-20 |
+| 5 GSAP & Scroll | review | 2026-11-20 |
 | 6 Responsive Tools | — | |
 | 7 Database | — | |
 | 8 My Library + VS Code snippet export | — | |

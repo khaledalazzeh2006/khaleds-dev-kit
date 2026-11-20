@@ -1,0 +1,14 @@
+{
+  "id": "gsap-register-plugins",
+  "category": "gsap",
+  "group": "Setup",
+  "title": "Install & register plugins",
+  "description": "All plugins are free: import what you use and register once.",
+  "language": "js",
+  "code": "// npm install gsap\nimport gsap from \"gsap\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\nimport { SplitText } from \"gsap/SplitText\";\nimport { Flip } from \"gsap/Flip\";\n\ngsap.registerPlugin(ScrollTrigger, SplitText, Flip);\n",
+  "codeReact": "// npm install gsap @gsap/react\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\n// Register once (e.g. in main.tsx). useGSAP cleans up animations on unmount.\ngsap.registerPlugin(useGSAP, ScrollTrigger);\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "tags": ["setup", "plugins"],
+  "source": "https://gsap.com/docs/v3/Installation",
+  "verified": "2026-11"
+}

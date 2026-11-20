@@ -1,0 +1,14 @@
+{
+  "id": "gsap-lenis",
+  "category": "gsap",
+  "group": "Setup",
+  "title": "Lenis smooth scroll + ScrollTrigger",
+  "description": "Smooth scrolling that stays in sync with ScrollTrigger.",
+  "language": "js",
+  "code": "import Lenis from \"lenis\";\nimport gsap from \"gsap\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(ScrollTrigger);\n\nconst lenis = new Lenis();\nlenis.on(\"scroll\", ScrollTrigger.update);\ngsap.ticker.add((time) => lenis.raf(time * 1000));\ngsap.ticker.lagSmoothing(0);\n",
+  "codeReact": "import { useEffect, useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { ReactLenis, type LenisRef } from \"lenis/react\";\n\nexport function SmoothScroll({ children }: { children: React.ReactNode }) {\n  const lenisRef = useRef<LenisRef>(null);\n\n  useEffect(() => {\n    const update = (time: number) => lenisRef.current?.lenis?.raf(time * 1000);\n    gsap.ticker.add(update);\n    return () => gsap.ticker.remove(update);\n  }, []);\n\n  return (\n    <ReactLenis root options={{ autoRaf: false }} ref={lenisRef}>\n      {children}\n    </ReactLenis>\n  );\n}\n",
+  "dependencies": ["lenis", "gsap"],
+  "tags": ["setup", "lenis", "smooth scroll"],
+  "source": "https://github.com/darkroomengineering/lenis",
+  "verified": "2026-11"
+}

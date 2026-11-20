@@ -1,5 +1,5 @@
 {
-  "id": "gsap-pin-section",
+  "id": "example-pin-section",
   "category": "gsap",
   "title": "Pin a section while scrolling",
   "description": "Keeps a section fixed while its content animates as the user scrolls.",

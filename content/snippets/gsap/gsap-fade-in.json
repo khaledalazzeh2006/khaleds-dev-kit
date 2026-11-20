@@ -1,0 +1,58 @@
+{
+  "id": "gsap-fade-in",
+  "category": "gsap",
+  "group": "Basics",
+  "title": "Fade in",
+  "description": "Fades and slides an element in on load.",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\n\ngsap.from(\".box\", {\n  y: {{y}},\n  opacity: 0,\n  duration: {{duration}},\n  ease: \"{{ease}}\",\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\n\ngsap.registerPlugin(useGSAP);\n\nexport function FadeIn() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      gsap.from(\".box\", {\n        y: {{y}},\n        opacity: 0,\n        duration: {{duration}},\n        ease: \"{{ease}}\",\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container}>\n      <div className=\"box\">Hello</div>\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "y",
+      "label": "Start offset (y)",
+      "type": "number",
+      "default": 40,
+      "min": -200,
+      "max": 200,
+      "step": 5,
+      "unit": "px"
+    },
+    {
+      "key": "duration",
+      "label": "Duration",
+      "type": "number",
+      "default": 0.8,
+      "min": 0.1,
+      "max": 3,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "key": "ease",
+      "label": "Ease",
+      "type": "ease",
+      "default": "power3.out",
+      "options": [
+        "none",
+        "power1.out",
+        "power2.out",
+        "power3.out",
+        "power4.out",
+        "power2.inOut",
+        "power3.inOut",
+        "expo.out",
+        "sine.inOut",
+        "circ.out",
+        "back.out(1.7)",
+        "elastic.out(1, 0.3)",
+        "bounce.out"
+      ]
+    }
+  ],
+  "preview": "fade-in",
+  "tags": ["from", "basics"],
+  "source": "https://gsap.com/docs/v3/GSAP/gsap.from()",
+  "verified": "2026-11"
+}

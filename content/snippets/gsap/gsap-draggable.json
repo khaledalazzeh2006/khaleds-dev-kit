@@ -1,0 +1,30 @@
+{
+  "id": "gsap-draggable",
+  "category": "gsap",
+  "group": "Interaction",
+  "title": "Draggable",
+  "description": "Drag an element inside bounds, with momentum.",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\nimport { Draggable } from \"gsap/Draggable\";\nimport { InertiaPlugin } from \"gsap/InertiaPlugin\";\n\ngsap.registerPlugin(Draggable, InertiaPlugin);\n\nDraggable.create(\".card\", {\n  type: \"{{type}}\",\n  bounds: \".stage\",\n  inertia: {{inertia}},\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\nimport { Draggable } from \"gsap/Draggable\";\nimport { InertiaPlugin } from \"gsap/InertiaPlugin\";\n\ngsap.registerPlugin(useGSAP, Draggable, InertiaPlugin);\n\nexport function DraggableDemo() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      Draggable.create(\".card\", {\n        type: \"{{type}}\",\n        bounds: \".stage\",\n        inertia: {{inertia}},\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container} className=\"stage\">\n      <div className=\"card\">Drag me</div>\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "type",
+      "label": "Drag type",
+      "type": "select",
+      "default": "x,y",
+      "options": ["x,y", "x", "y", "rotation"]
+    },
+    {
+      "key": "inertia",
+      "label": "Momentum (inertia)",
+      "type": "boolean",
+      "default": true
+    }
+  ],
+  "preview": "draggable",
+  "tags": ["draggable", "drag"],
+  "source": "https://gsap.com/docs/v3/Plugins/Draggable/",
+  "verified": "2026-11"
+}

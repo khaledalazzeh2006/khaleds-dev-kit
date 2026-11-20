@@ -34,7 +34,12 @@ const theme = EditorView.theme({
     height: "100%",
   },
   "&.cm-focused": { outline: "none" },
-  ".cm-scroller": { fontFamily: "var(--font-mono)", lineHeight: "1.6" },
+  // No ligatures: code should show exactly the characters you will copy (=> not ⇒).
+  ".cm-scroller": {
+    fontFamily: "var(--font-mono)",
+    lineHeight: "1.6",
+    fontVariantLigatures: "none",
+  },
   ".cm-content": { caretColor: "var(--foreground)", padding: "10px 0" },
   ".cm-gutters": {
     backgroundColor: "transparent",

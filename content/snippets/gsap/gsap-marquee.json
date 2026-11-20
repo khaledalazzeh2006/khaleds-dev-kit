@@ -1,0 +1,27 @@
+{
+  "id": "gsap-marquee",
+  "category": "gsap",
+  "group": "Text & SVG",
+  "title": "Infinite marquee",
+  "description": "A seamless scrolling row (logos, tags, text).",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\n\n// .track holds the items twice, so moving it by -50% loops seamlessly\ngsap.to(\".track\", {\n  xPercent: -50,\n  duration: {{duration}},\n  ease: \"none\",\n  repeat: -1,\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\n\ngsap.registerPlugin(useGSAP);\n\nexport function Marquee() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      // .track holds the items twice, so moving it by -50% loops seamlessly\n      gsap.to(\".track\", {\n        xPercent: -50,\n        duration: {{duration}},\n        ease: \"none\",\n        repeat: -1,\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container} className=\"overflow-hidden\">\n      <div className=\"track flex w-max\">\n        {[...items, ...items].map((item, i) => (\n          <span key={i}>{item}</span>\n        ))}\n      </div>\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "duration",
+      "label": "Loop duration",
+      "type": "number",
+      "default": 12,
+      "min": 2,
+      "max": 40,
+      "step": 1,
+      "unit": "s"
+    }
+  ],
+  "preview": "marquee",
+  "tags": ["marquee", "loop"],
+  "source": "https://gsap.com/docs/v3/GSAP/gsap.to()",
+  "verified": "2026-11"
+}

@@ -1,0 +1,27 @@
+{
+  "id": "gsap-horizontal-scroll",
+  "category": "gsap",
+  "group": "ScrollTrigger",
+  "title": "Horizontal scroll",
+  "description": "Vertical scrolling moves a row of panels sideways.",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(ScrollTrigger);\n\nconst wrapper = document.querySelector(\".horizontal\");\nconst panels = gsap.utils.toArray(\".horizontal .panel\");\n\ngsap.to(panels, {\n  xPercent: -100 * (panels.length - 1),\n  ease: \"none\",\n  scrollTrigger: {\n    trigger: wrapper,\n    pin: true,\n    scrub: {{scrub}},\n    end: () => \"+=\" + wrapper.offsetWidth,\n  },\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(useGSAP, ScrollTrigger);\n\nexport function HorizontalScroll() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      const wrapper = container.current!;\n      const panels = gsap.utils.toArray<HTMLElement>(\".panel\");\n      gsap.to(panels, {\n        xPercent: -100 * (panels.length - 1),\n        ease: \"none\",\n        scrollTrigger: { trigger: wrapper, pin: true, scrub: {{scrub}}, end: () => \"+=\" + wrapper.offsetWidth },\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container} className=\"horizontal\">\n      {[1, 2, 3, 4].map((n) => (\n        <section key={n} className=\"panel\">{n}</section>\n      ))}\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "scrub",
+      "label": "Scrub smoothing",
+      "type": "number",
+      "default": 1,
+      "min": 0,
+      "max": 3,
+      "step": 0.1,
+      "unit": "s"
+    }
+  ],
+  "preview": "horizontal-scroll",
+  "tags": ["scrolltrigger", "horizontal"],
+  "source": "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+  "verified": "2026-11"
+}

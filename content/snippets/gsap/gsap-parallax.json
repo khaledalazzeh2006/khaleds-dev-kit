@@ -1,0 +1,27 @@
+{
+  "id": "gsap-parallax",
+  "category": "gsap",
+  "group": "ScrollTrigger",
+  "title": "Parallax layers",
+  "description": "Layers move at different speeds using data-speed.",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(ScrollTrigger);\n\n// <div data-speed=\"0.5\">…</div>  (higher = moves more)\ngsap.utils.toArray(\"[data-speed]\").forEach((el) => {\n  gsap.to(el, {\n    yPercent: -{{distance}} * Number(el.dataset.speed),\n    ease: \"none\",\n    scrollTrigger: {\n      trigger: el,\n      start: \"top bottom\",\n      end: \"bottom top\",\n      scrub: true,\n    },\n  });\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\nimport { ScrollTrigger } from \"gsap/ScrollTrigger\";\n\ngsap.registerPlugin(useGSAP, ScrollTrigger);\n\nexport function Parallax() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      gsap.utils.toArray<HTMLElement>(\"[data-speed]\").forEach((el) => {\n        gsap.to(el, {\n          yPercent: -{{distance}} * Number(el.dataset.speed),\n          ease: \"none\",\n          scrollTrigger: { trigger: el, start: \"top bottom\", end: \"bottom top\", scrub: true },\n        });\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container}>\n      <div data-speed=\"0.3\">Back</div>\n      <div data-speed=\"1\">Front</div>\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "distance",
+      "label": "Distance",
+      "type": "number",
+      "default": 100,
+      "min": 10,
+      "max": 300,
+      "step": 10,
+      "unit": "%"
+    }
+  ],
+  "preview": "parallax",
+  "tags": ["scrolltrigger", "parallax"],
+  "source": "https://gsap.com/docs/v3/Plugins/ScrollTrigger/",
+  "verified": "2026-11"
+}

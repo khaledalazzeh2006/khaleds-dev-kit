@@ -1,0 +1,57 @@
+{
+  "id": "gsap-counter",
+  "category": "gsap",
+  "group": "Basics",
+  "title": "Number counter",
+  "description": "Counts a number up, e.g. stats on a landing page.",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\n\nconst el = document.querySelector(\".count\");\nconst counter = { value: 0 };\n\ngsap.to(counter, {\n  value: {{end}},\n  duration: {{duration}},\n  ease: \"{{ease}}\",\n  onUpdate: () => {\n    el.textContent = Math.round(counter.value).toLocaleString();\n  },\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\n\ngsap.registerPlugin(useGSAP);\n\nexport function Counter() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      const el = container.current!.querySelector(\".count\")!;\n      const counter = { value: 0 };\n      gsap.to(counter, {\n        value: {{end}},\n        duration: {{duration}},\n        ease: \"{{ease}}\",\n        onUpdate: () => {\n          el.textContent = Math.round(counter.value).toLocaleString();\n        },\n      });\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container}>\n      <span className=\"count\">0</span>\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "end",
+      "label": "End value",
+      "type": "number",
+      "default": 12500,
+      "min": 10,
+      "max": 1000000,
+      "step": 10
+    },
+    {
+      "key": "duration",
+      "label": "Duration",
+      "type": "number",
+      "default": 2,
+      "min": 0.2,
+      "max": 6,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "key": "ease",
+      "label": "Ease",
+      "type": "ease",
+      "default": "power2.out",
+      "options": [
+        "none",
+        "power1.out",
+        "power2.out",
+        "power3.out",
+        "power4.out",
+        "power2.inOut",
+        "power3.inOut",
+        "expo.out",
+        "sine.inOut",
+        "circ.out",
+        "back.out(1.7)",
+        "elastic.out(1, 0.3)",
+        "bounce.out"
+      ]
+    }
+  ],
+  "preview": "counter",
+  "tags": ["number", "stats"],
+  "source": "https://gsap.com/docs/v3/GSAP/gsap.to()",
+  "verified": "2026-11"
+}

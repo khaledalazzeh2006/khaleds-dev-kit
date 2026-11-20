@@ -1,0 +1,58 @@
+{
+  "id": "gsap-flip",
+  "category": "gsap",
+  "group": "Interaction",
+  "title": "Layout change (Flip)",
+  "description": "Smoothly animates elements between two layouts (grid ↔ list).",
+  "language": "js",
+  "code": "import gsap from \"gsap\";\nimport { Flip } from \"gsap/Flip\";\n\ngsap.registerPlugin(Flip);\n\nconst grid = document.querySelector(\".grid\");\n\ndocument.querySelector(\".toggle\").addEventListener(\"click\", () => {\n  const state = Flip.getState(\".grid .card\");\n  grid.classList.toggle(\"list\");\n  Flip.from(state, {\n    duration: {{duration}},\n    ease: \"{{ease}}\",\n    stagger: {{stagger}},\n    absolute: true,\n  });\n});\n",
+  "codeReact": "import { useRef } from \"react\";\nimport gsap from \"gsap\";\nimport { useGSAP } from \"@gsap/react\";\nimport { Flip } from \"gsap/Flip\";\n\ngsap.registerPlugin(useGSAP, Flip);\n\nexport function FlipDemo() {\n  const container = useRef<HTMLDivElement>(null);\n\n  useGSAP(\n    () => {\n      // In React, call Flip inside your toggle handler (contextSafe), after changing state.\n      // See the vanilla version for the core idea: getState → change layout → Flip.from(state).\n    },\n    { scope: container },\n  );\n\n  return (\n    <div ref={container}>\n      <button className=\"toggle\" onClick={toggle}>Toggle layout</button>\n      <div className=\"grid\">{/* .card × n */}</div>\n    </div>\n  );\n}\n",
+  "dependencies": ["gsap", "@gsap/react"],
+  "params": [
+    {
+      "key": "duration",
+      "label": "Duration",
+      "type": "number",
+      "default": 0.6,
+      "min": 0.1,
+      "max": 2,
+      "step": 0.1,
+      "unit": "s"
+    },
+    {
+      "key": "stagger",
+      "label": "Stagger",
+      "type": "number",
+      "default": 0.04,
+      "min": 0,
+      "max": 0.3,
+      "step": 0.01,
+      "unit": "s"
+    },
+    {
+      "key": "ease",
+      "label": "Ease",
+      "type": "ease",
+      "default": "power2.inOut",
+      "options": [
+        "none",
+        "power1.out",
+        "power2.out",
+        "power3.out",
+        "power4.out",
+        "power2.inOut",
+        "power3.inOut",
+        "expo.out",
+        "sine.inOut",
+        "circ.out",
+        "back.out(1.7)",
+        "elastic.out(1, 0.3)",
+        "bounce.out"
+      ]
+    }
+  ],
+  "preview": "flip",
+  "tags": ["flip", "layout"],
+  "source": "https://gsap.com/docs/v3/Plugins/Flip/",
+  "verified": "2026-11"
+}

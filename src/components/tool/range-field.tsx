@@ -39,7 +39,8 @@ export function RangeField({ label, value, onChange, min, max, step = 1, unit }:
             step={step}
             value={value}
             onChange={(e) => onChange(clamp(Number(e.target.value)))}
-            className="h-8 w-16 rounded-md border border-input bg-transparent px-2 text-right text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
+            style={{ width: `${Math.max(4, String(max).length + 2.5)}ch` }}
+            className="h-8 rounded-md border border-input bg-transparent px-2 text-right text-sm outline-none focus-visible:border-ring focus-visible:ring-2 focus-visible:ring-ring/40"
           />
           {unit && <span className="text-xs text-muted-foreground">{unit}</span>}
         </div>
